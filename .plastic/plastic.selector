@@ -1,4 +1,0 @@
-repository "Fight-or-Flight@RyanWestwood@cloud"
-  path "/"
-    br "/main"
-    co "/main"
