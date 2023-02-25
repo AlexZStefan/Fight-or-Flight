@@ -30,6 +30,6 @@ public class LightBlink : MonoBehaviour
         else
             light.intensity = 3.5f;
 
-        Debug.Log(timer);
+       
     }
 }
