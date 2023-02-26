@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : ScriptableObject
 {
-    [SerializeField]
-    GameObject prefab;
-    public string characterSelected; 
+    public GameObject character;
+    public string characterSelected;
 
+    public Transform startingPosition;
 }

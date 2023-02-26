@@ -17,7 +17,8 @@ public class AudioManager : MonoBehaviour
     float musicVolume = 1;
     public static AudioManager instance { get; private set; }
     public EventInstance openWindZone;
-    public EventInstance windSound;
+    public EventInstance menuMusic;
+    public EventInstance inGameMusic;
 
     public float windVolume = 1.0f; 
     public Bus masterBus;
@@ -29,13 +30,16 @@ public class AudioManager : MonoBehaviour
         if (instance == null) instance = this;
         // create event instances
         openWindZone = CreateEventInstance(FModEvents.instance.openWindZone);
-       }
+        menuMusic = CreateEventInstance(FModEvents.instance.MenuMusic);
+        menuMusic.setParameterByName("Loop", 1);
+        inGameMusic = CreateEventInstance(FModEvents.instance.InGameMusic);
+        inGameMusic.setParameterByName("Loop", 1);
+               
+    }
 
     private void Start()
     {
-        openWindZone.start();
-
-        PlayOneShot(FModEvents.instance.footStep, new Vector3(-0, 29, 118));
+        
     }
 
     public void SetInstanceParameter(float value, string name, EventInstance instance)
