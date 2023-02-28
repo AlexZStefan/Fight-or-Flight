@@ -18,14 +18,12 @@ public class GameManager : MonoBehaviour
             instance = this;
         playerOne = (Player)ScriptableObject.CreateInstance("Player");
         playerTwo = (Player)ScriptableObject.CreateInstance("Player");
-
     }
-
 
     public void StartGame()
     {
-        GameManager.instance.playerOne.characterSelected = InGameCharacters.instance.characters[0].name;
-        GameManager.instance.mapSelected = MapSelector.instance.maps[0].name;
+       // GameManager.instance.playerOne.characterSelected = InGameCharacters.instance.characters[0].name;
+       // GameManager.instance.mapSelected = MapSelector.instance.maps[0].name;
 
         // called from menu script uppond sellecting the map
         Debug.Log("GameStarted");
@@ -45,7 +43,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // Instantiate characters Player 1
+        // Instantiate characters Player 1 & 2
         foreach (var v in InGameCharacters.instance.characters)
         {
             if (v.name == playerOne.characterSelected)
@@ -54,32 +52,42 @@ public class GameManager : MonoBehaviour
                 playerOne.startingPosition = GameObject.Find("PlayerSpawn1").transform;
                 playerOne.character.transform.position = playerOne.startingPosition.position;
                 playerOne.character.transform.rotation = playerOne.startingPosition.rotation;
-                break;
-            }
-            else
+                Debug.Log("Spawned P1: " +  v.name);
+            }            
+
+            if (v.name == playerTwo.characterSelected)
             {
-                Debug.Log("Character does not exist: " + playerOne.character);
-            }
+                playerTwo.character = Instantiate(v);
+                playerTwo.startingPosition = GameObject.Find("PlayerSpawn2").transform;
+                playerTwo.character.transform.position = playerTwo.startingPosition.position;
+                playerTwo.character.transform.rotation = playerTwo.startingPosition.rotation;
+                Debug.Log("Spawned P2: " + v.name);
+            }        
         }
 
-        // Player 2 character Here
-
+        //ui and music
+        CharSelection.instance.ChangeAvatarImage(1);
+        CharSelection.instance.ChangeAvatarImage(2);
         Menu.instance.ActivateInGameUI();
-
         AudioManager.instance.inGameMusic.start();
     }
 
+    // cleans player selections
     public void EndGame()
     {
-        // called from menu script uppond sellecting the map
         Debug.Log("Game Ended");
 
         AudioManager.instance.inGameMusic.setParameterByName("Loop", 0);
 
         Menu.instance.DisableInGameUI();
-    }
 
-    
+        playerOne.CleanPlayer();
+        playerTwo.CleanPlayer();
+        mapSelected = "";
+
+        Destroy(currentMap);
+        currentMap = null;
+    }    
 
     void CleanUpRound()
     {
