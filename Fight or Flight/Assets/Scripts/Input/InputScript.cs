@@ -16,7 +16,6 @@ public class InputScript : MonoBehaviour
 
     void Start()
     {
-
         anim = GetComponent<Animator>();
     }
 
@@ -40,6 +39,10 @@ public class InputScript : MonoBehaviour
         crouch = playerActions.Player.Crouch.ReadValue<float>();
         movement = playerActions.Player.Movement.ReadValue<Vector2>();
         jump = playerActions.Player.Jump.ReadValue<float>();
+        melee = playerActions.Player.LightAttack.ReadValue<float>();
+        ranged = playerActions.Player.RangedAttack.ReadValue<float>();
+
+
         if (movement != Vector2.zero)
         {
             Debug.Log("Movement: " + movement);
@@ -58,21 +61,28 @@ public class InputScript : MonoBehaviour
         else if (jump != 0f)
         {
             Debug.Log("Jump: " + jump);
-            Debug.Log("Jump Animation played " + jump);
+            anim.Play("Jump");
             // if is Grounded
             AudioManager.instance.PlayOneShot(FModEvents.instance.jumpSound, Vector3.zero);
 
         }
+        else if (melee != 0f)
+        {
+            Debug.Log("Melee: " + melee);
+            anim.Play("Meelee");
+        }
+
+        else if (ranged != 0f) 
+        {
+            Debug.Log("Ranged: " + ranged);
+            anim.Play("Range");
+        }
+
         else
         {
             // idle animation
             anim.Play("Idle");
         }
-        ranged = playerActions.Player.RangedAttack.ReadValue<float>();
-        if (ranged != 0f) Debug.Log("Ranged: " + ranged);
-
-        melee = playerActions.Player.LightAttack.ReadValue<float>();
-        if (melee != 0f) Debug.Log("Melee: " + melee);
     }
 
 }
