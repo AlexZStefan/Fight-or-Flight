@@ -1793,7 +1793,7 @@ GameObject:
   - component: {fileID: 8009770143706229787}
   m_Layer: 0
   m_Name: Marvin
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
