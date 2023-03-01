@@ -16,11 +16,23 @@ public class Menu : MonoBehaviour
     GameObject BackgroundImage; 
     [SerializeField]
     GameObject InGameUI;
+    public GameObject AvatarP1;
+    public GameObject AvatarP2;
+
+    UnityEngine.EventSystems.BaseEventData selectCharacter;
+
+
+    [field: Header("Character Buttons")]
+    List<Button> characterButtons = new List<Button>();
+    [field: SerializeField] public Button char1 { get; private set; }
+
+    [field: Header("Map Buttons")]
+    List<Button> mapButtons = new List<Button>();
 
     public static Menu instance; 
 
     private void Start()
-    {
+    {      
         if(!instance) instance = this;
 
         BackgroundImage.SetActive(true);
@@ -28,23 +40,36 @@ public class Menu : MonoBehaviour
         MapSelectMenu.SetActive(false);
         CharSelectMenu.SetActive(false);
         InGameUI.SetActive(false);
-        
+
         // set text namae to each character 
         // add event listeners
-        Button[] buttons =  CharSelectMenu.GetComponentsInChildren<Button>();
+        //Button[] buttons =  CharSelectMenu.GetComponentsInChildren<Button>();
 
-        for(int i = 0;  i < InGameCharacters.instance.characters.Count; i++)
+    
+
+        foreach (var b in CharSelectMenu.GetComponentsInChildren<Button>())
         {
-            buttons[i].GetComponent<Text>().text = InGameCharacters.instance.characters[i].name;
-            buttons[i].name = InGameCharacters.instance.characters[i].name;
-            
+            characterButtons.Add(b);
+            b.onClick.AddListener(() => SelectCharacter(b));               
+        }
 
-            buttons[i].onClick.AddListener(() => SelectCharacter(buttons[i]));      
+        for (int i = 0; i < InGameCharacters.instance.characters.Count; i++)
+        {
+            characterButtons[i].GetComponent<Text>().text = InGameCharacters.instance.characters[i].name;
+            characterButtons[i].name = InGameCharacters.instance.characters[i].name;
         }
 
         // set text name to each map 
         // add event listeners
-        Button[] mapButtons = MapSelectMenu.GetComponentsInChildren<Button>();
+
+
+        foreach (var b in MapSelectMenu.GetComponentsInChildren<Button>())
+        {
+            mapButtons.Add(b);
+            b.onClick.AddListener(() => SelectMap(b));
+
+            b.OnSelect(selectCharacter);
+        }
 
         for (int i = 0; i < MapSelector.instance.maps.Count; i++)
         {
@@ -52,9 +77,11 @@ public class Menu : MonoBehaviour
             mapButtons[i].name = MapSelector.instance.maps[i].name;
             //Debug.Log(MapSelector.instance.maps[i].name);
             // There is a bug here - map is selected as map 0 for temp fix
-           
-            mapButtons[i].onClick.AddListener(() => SelectMap(mapButtons[i]));    
         }
+
+       // Button[] mapButtonss = MapSelectMenu.GetComponentsInChildren<Button>();
+            
+
 
         FMOD.Studio.PLAYBACK_STATE musicState;
         AudioManager.instance.menuMusic.getPlaybackState(out musicState);
@@ -79,6 +106,9 @@ public class Menu : MonoBehaviour
         CharSelectMenu.SetActive(true);
         Button b =  CharSelectMenu.GetComponentInChildren<Button>();        
         b.Select();
+
+        b.OnSelect(selectCharacter);
+
     }
 
     public void ToogleOptionsMenu()
@@ -104,30 +134,34 @@ public class Menu : MonoBehaviour
     }
 
     public void SelectCharacter(Button button)
-    {       
-        
+    {               
         AudioManager.instance.PlayOneShot(FModEvents.instance.charSelect, Vector3.zero);
         foreach (var v in InGameCharacters.instance.characters)
         {
             if (button.name == v.name)
             {
-                Debug.Log(button.name);
-                
+                if (GameManager.instance.playerOne.characterSelected.Length == 0)
+                {
+                    GameManager.instance.playerOne.characterSelected = v.name;                    
+                }
+                else if (GameManager.instance.playerTwo.characterSelected.Length == 0)
+                {
+                    GameManager.instance.playerTwo.characterSelected = v.name;
+                    ToogleMapSelectMenu();
+                }
             }
-        }        
-
-       // if (GameManager.instance.playerOne.characterSelected.Length > 0) //&& playerTwo.characterSelected == "")        
-            ToogleMapSelectMenu();        
+        }      
+        // if (GameManager.instance.playerOne.characterSelected.Length > 0) //&& playerTwo.characterSelected == "")        
     }
 
     public void SelectMap(Button mapSelect) 
     {
-        AudioManager.instance.PlayOneShot(FModEvents.instance.mapSelect, Vector3.zero);
-     
+        AudioManager.instance.PlayOneShot(FModEvents.instance.mapSelect, Vector3.zero);     
         foreach(var m in MapSelector.instance.maps)
         {
-            if (m.name == GameManager.instance.mapSelected)
-            {                
+            if (m.name == mapSelect.name)
+            {
+                GameManager.instance.mapSelected = m.name;
                 Debug.Log("MAP SELECTED " + m.name);                
             }
         }
