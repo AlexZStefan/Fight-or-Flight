@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.02.00">
-	<object class="MasterAssetFolder" id="{d9fb78a5-f648-4b6a-856e-dd65f561b660}">
-		<property name="assetDirectory">
-			<value>../Fight or Flight/Assets/Sounds</value>
-		</property>
-	</object>
-</objects>

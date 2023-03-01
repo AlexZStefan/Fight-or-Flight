@@ -42,7 +42,6 @@ public class InputScript : MonoBehaviour
         melee = playerActions.Player.LightAttack.ReadValue<float>();
         ranged = playerActions.Player.RangedAttack.ReadValue<float>();
 
-
         if (movement != Vector2.zero)
         {
             Debug.Log("Movement: " + movement);
@@ -51,8 +50,8 @@ public class InputScript : MonoBehaviour
             //animation for movement
             anim.Play("Run");
             transform.forward = new Vector3(-movement.x, 0, -movement.y) * Time.deltaTime;
-
         }
+
         else if (crouch != 0f)
         {
             Debug.Log("Crouch: " + crouch);

@@ -65,6 +65,9 @@ public class GameManager : MonoBehaviour
             }        
         }
 
+        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().AddMember(playerOne.character.transform,2,0);
+        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().AddMember(playerTwo.character.transform,2,0);
+
         //ui and music
         CharSelection.instance.ChangeAvatarImage(1);
         CharSelection.instance.ChangeAvatarImage(2);
@@ -75,16 +78,19 @@ public class GameManager : MonoBehaviour
     // cleans player selections
     public void EndGame()
     {
-        Debug.Log("Game Ended");
-
+        Debug.Log("Game Ended");        
+        // music
         AudioManager.instance.inGameMusic.setParameterByName("Loop", 0);
 
+        // game 
         Menu.instance.DisableInGameUI();
+        mapSelected = "";
+        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().RemoveMember(playerOne.character.transform);
+        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().RemoveMember(playerTwo.character.transform);
 
+        // data
         playerOne.CleanPlayer();
         playerTwo.CleanPlayer();
-        mapSelected = "";
-
         Destroy(currentMap);
         currentMap = null;
     }    
