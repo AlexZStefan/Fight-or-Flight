@@ -47,7 +47,7 @@ public class CharSelection : MonoBehaviour
         {
             foreach (var i in avatarImages)
             {
-                if (GameManager.instance.playerOne.characterSelected + "_avatar1" == i.name)
+                if (GameManager.instance.playerOne.characterSelected + "_avatar" == i.name)
                 {
                     Menu.instance.AvatarP1.GetComponent<Image>().sprite = i;
                 }
@@ -57,7 +57,7 @@ public class CharSelection : MonoBehaviour
         {
             foreach (var i in avatarImages)
             {
-                if (GameManager.instance.playerTwo.characterSelected + "_avatar2" == i.name)
+                if (GameManager.instance.playerTwo.characterSelected + "_avatar" == i.name)
                 {
                     Menu.instance.AvatarP2.GetComponent<Image>().sprite = i;
                 }
