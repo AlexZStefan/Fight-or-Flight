@@ -157,6 +157,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.DefaultCompany.FightorFlight
     Standalone: com.DefaultCompany.Fight-or-Flight
+    iPhone: com.DefaultCompany.Fight-or-Flight
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -936,7 +937,7 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 1
+  activeInputHandler: 2
   cloudProjectId: 6cbf5c53-14ba-4961-9b5f-b88aaf9d7815
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
