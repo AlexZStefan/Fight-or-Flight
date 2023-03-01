@@ -12,8 +12,8 @@ public class Menu : MonoBehaviour
     GameObject CharSelectMenu;
     [SerializeField]
     GameObject MapSelectMenu;
-    [SerializeField]
-    GameObject BackgroundImage; 
+    //[SerializeField]
+    //GameObject BackgroundImage; 
     [SerializeField]
     GameObject InGameUI;
     public GameObject AvatarP1;
@@ -35,7 +35,7 @@ public class Menu : MonoBehaviour
     {      
         if(!instance) instance = this;
 
-        BackgroundImage.SetActive(true);
+        //BackgroundImage.SetActive(true);
         MainMenu.SetActive(true);
         MapSelectMenu.SetActive(false);
         CharSelectMenu.SetActive(false);
@@ -169,7 +169,7 @@ public class Menu : MonoBehaviour
         MainMenu.SetActive(false);
         MapSelectMenu.SetActive(false);
         CharSelectMenu.SetActive(false);
-        BackgroundImage.SetActive(false);
+        //BackgroundImage.SetActive(false);
 
         AudioManager.instance.menuMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         GameManager.instance.StartGame();
