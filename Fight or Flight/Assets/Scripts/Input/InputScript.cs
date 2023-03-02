@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputScript : MonoBehaviour
+public class InputScript : MonoBehaviour,
+    PlayerAct.IPlayerActions
 {
     private PlayerAct playerActions;
     private Vector2 movement; // A, D
@@ -22,26 +23,12 @@ public class InputScript : MonoBehaviour
     void Awake()
     {
         playerActions = new PlayerAct();
-    }
-
-    private void OnEnable()
-    {
+        playerActions.Player.SetCallbacks(this);
         playerActions.Player.Enable();
     }
 
-    private void OnDisable()
-    {
-        playerActions.Player.Disable();
-    }
-
     private void FixedUpdate()
-    {
-        crouch = playerActions.Player.Crouch.ReadValue<float>();
-        movement = playerActions.Player.Movement.ReadValue<Vector2>();
-        jump = playerActions.Player.Jump.ReadValue<float>();
-        melee = playerActions.Player.LightAttack.ReadValue<float>();
-        ranged = playerActions.Player.RangedAttack.ReadValue<float>();
-
+    {       
         if (movement != Vector2.zero)
         {
             Debug.Log("Movement: " + movement);
@@ -84,6 +71,38 @@ public class InputScript : MonoBehaviour
         }
     }
 
+    public void OnMovement(InputAction.CallbackContext context)
+    {
+        movement = context.ReadValue<Vector2>();
+    }
+
+    public void OnCrouch(InputAction.CallbackContext context)
+    {
+        crouch = context.ReadValue<float>();
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        jump = context.ReadValue<float>();
+    }
+
+    public void OnLightAttack(InputAction.CallbackContext context)
+    {
+        melee = context.ReadValue<float>();
+    }
+
+    public void OnHeavyAttack(InputAction.CallbackContext context)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnRangedAttack(InputAction.CallbackContext context)
+    {
+        ranged = context.ReadValue<float>();
+    }
+
+    public void OnUltimateAttack(InputAction.CallbackContext context)
+    {
+        throw new System.NotImplementedException();
+    }
 }
-
-

@@ -52,8 +52,8 @@ public class GameManager : MonoBehaviour
                 playerOne.startingPosition = GameObject.Find("PlayerSpawn1").transform;
                 playerOne.character.transform.position = playerOne.startingPosition.position;
                 playerOne.character.transform.rotation = playerOne.startingPosition.rotation;
-                Debug.Log("Spawned P1: " +  v.name);
-            }            
+                Debug.Log("Spawned P1: " + v.name);
+            }
 
             if (v.name == playerTwo.characterSelected)
             {
@@ -62,11 +62,11 @@ public class GameManager : MonoBehaviour
                 playerTwo.character.transform.position = playerTwo.startingPosition.position;
                 playerTwo.character.transform.rotation = playerTwo.startingPosition.rotation;
                 Debug.Log("Spawned P2: " + v.name);
-            }        
+            }
         }
 
-        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().AddMember(playerOne.character.transform,2,0);
-        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().AddMember(playerTwo.character.transform,2,0);
+        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().AddMember(playerOne.character.transform, 2, 0);
+        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().AddMember(playerTwo.character.transform, 2, 0);
 
         //ui and music
         CharSelection.instance.ChangeAvatarImage(1);
