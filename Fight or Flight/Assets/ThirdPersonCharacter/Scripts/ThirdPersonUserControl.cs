@@ -89,9 +89,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             jump = playerActions.Player.Jump.ReadValue<float>();
             melee = playerActions.Player.LightAttack.ReadValue<float>();
             ranged = playerActions.Player.RangedAttack.ReadValue<float>();
-
-
-            Debug.Log("Movement + " + movement);
+                                  
             // read inputs
             // float h = CrossPlatformInputManager.GetAxis("Horizontal");
             //   float v = CrossPlatformInputManager.GetAxis("Vertical");
@@ -126,7 +124,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             else
             {
                 // we use world-relative directions in the case of no main camera
-                m_Move = new Vector3(movement.x*100, 0, 0);
+                m_Move = new Vector3(-movement.x*100, 0, 0);
                 
             }
 
