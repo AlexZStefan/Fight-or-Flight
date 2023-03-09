@@ -71,9 +71,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             if (!m_Jump)
             {
                 m_Jump = jump > 0.1 ? true : false;
-           
-
-
             }
         }
 
