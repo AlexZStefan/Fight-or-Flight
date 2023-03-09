@@ -12,5 +12,4 @@ public class InGameCharacters : MonoBehaviour
         if (!instance)
             instance = this;
     }
-
 }
