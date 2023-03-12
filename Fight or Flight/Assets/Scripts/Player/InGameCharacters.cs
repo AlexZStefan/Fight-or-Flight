@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 
 public class InGameCharacters : MonoBehaviour
 {      
@@ -9,10 +9,10 @@ public class InGameCharacters : MonoBehaviour
     public static InGameCharacters instance;
     private void Awake()
     {
-
-
         if (!instance)
+        {
             instance = this;
+        }
     }
 
 }

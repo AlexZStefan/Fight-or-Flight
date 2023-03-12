@@ -16,6 +16,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
         public bool isMoving;
+        private Animator anim;
         //public UnityEvent ; 
 
         private PlayerAct playerActions;
@@ -28,6 +29,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         void Awake()
         {
             playerActions = new PlayerAct();
+
         }
 
         private void OnEnable()
@@ -38,6 +40,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Start()
         {
+            //m_Animator = GetComponent<Animator>();
+
+            anim = GetComponent<Animator>();
             //Set Cursor to not be visible
             Cursor.visible = false;
 
@@ -58,14 +63,14 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         }
 
         void OnApplicationFocus(bool status)
-	{
-		if (status)
-		{
-			/*Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;*/
-		}
-	}
-
+        {
+            if (status)
+            {
+                /*Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;*/
+            }
+        }
+	    
         private void Update()
         {
             if (!m_Jump)
@@ -74,6 +79,20 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
         }
 
+        public void Attack()
+        {
+            if (melee != 0f)
+            {
+                Debug.Log("Melee: " + melee);
+                anim.Play("Meelee");
+            }
+            else if (ranged != 0f)
+            {
+                Debug.Log("Ranged: " + ranged);
+                anim.Play("RangeAttack");
+            }
+
+        }
 
         // Fixed update is called in sync with physics
         private void FixedUpdate()
@@ -87,7 +106,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             melee = playerActions.Player.LightAttack.ReadValue<float>();
             ranged = playerActions.Player.RangedAttack.ReadValue<float>();
                                   
-            // read inputs
+/*            // read inputs
             // float h = CrossPlatformInputManager.GetAxis("Horizontal");
             //   float v = CrossPlatformInputManager.GetAxis("Vertical");
             //if (movement != Vector2.zero)
@@ -97,7 +116,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             //    //animation for movement                
             //    transform.forward = new Vector3(-movement.x, 0, -movement.y) * Time.deltaTime;
-            //}
+            //}*/
 
             float h = movement.y > 0 ? 1 : 0;
             float v = movement.x > 0 ? 1 : 0;
@@ -111,7 +130,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 isMoving = false;
 
             // calculate move direction to pass to character
-            if (m_Cam != null)
+            if (m_Cam != null )
             {
                 // calculate camera relative direction to move:
                 m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3((1), 0, (1))).normalized;
@@ -121,11 +140,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             else
             {
                 // we use world-relative directions in the case of no main camera
-                m_Move = new Vector3(movement.x*100, 0, 0);
+                m_Move = new Vector3(movement.x * 100, 0, 0);
                 
             }
+            Attack();
 
-       
 
 #if !MOBILE_INPUT
             // walk speed multiplier
@@ -133,7 +152,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             
 #endif
 
-            Debug.Log(m_Move.ToString() +" "+ crouch+ " " + m_Jump);
+            //Debug.Log(m_Move.ToString() +" "+ crouch+ " " + m_Jump);
             // pass all parameters to the character control script
             m_Character.Move(m_Move, crouch, m_Jump);
             m_Jump = false;
