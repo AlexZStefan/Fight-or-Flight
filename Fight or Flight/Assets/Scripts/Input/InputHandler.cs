@@ -38,7 +38,6 @@ public class InputHandler : MonoBehaviour
                     }
                     userControl = c;
                 }
-
             };
         }
     }
@@ -62,22 +61,19 @@ public class InputHandler : MonoBehaviour
 
     public void OnLightAttack(InputAction.CallbackContext context)
     {
-        if (context.performed)
-            userControl.lightAttack = context.ReadValue<float>();
+        userControl.lightAttack = context.ReadValue<float>();
         Debug.Log("Punching " + context.ReadValue<float>());
     }
 
     public void OnRangedAttack(InputAction.CallbackContext context)
-    {
-        if(context.performed)
-            userControl.rangedAttack = context.ReadValue<float>();
+    {        
+        userControl.rangedAttack = context.ReadValue<float>();
         Debug.Log("Range attack " + context.ReadValue<float>());
     }
 
     public void OnHeavyAttack(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-            userControl.heavyAttack = context.ReadValue<float>();
+    {       
+        userControl.heavyAttack = context.ReadValue<float>();
         Debug.Log("Range attack " + context.ReadValue<float>());
     }
 }

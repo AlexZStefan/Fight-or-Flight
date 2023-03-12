@@ -40,7 +40,7 @@ using UnityEngine.InputSystem;
         private void Start()
         {
             //Set Cursor to not be visible
-            Cursor.visible = false;
+            //Cursor.visible = false;
 
             // get the transform of the main camera
             if (Camera.main != null)
@@ -91,8 +91,7 @@ using UnityEngine.InputSystem;
             //jump = playerActions.Player.Jump.ReadValue<float>();
             //melee = playerActions.Player.LightAttack.ReadValue<float>();
             //ranged = playerActions.Player.RangedAttack.ReadValue<float>();
-           
-                        
+                                   
             float h = movement.y > 0 ? 1 : 0;
             float v = movement.x > 0 ? 1 : 0;
             bool crouch = crouchPA >0 ? true : false;
@@ -109,7 +108,7 @@ using UnityEngine.InputSystem;
             {
                 // calculate camera relative direction to move:
                 m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3((1), 0, (1))).normalized;
-                m_Move = new Vector3(movement.x * 100, 0, 0);
+                m_Move = new Vector3(-movement.x * 100, 0, 0);
 
             }
             else
@@ -128,7 +127,10 @@ using UnityEngine.InputSystem;
             Debug.Log(m_Move.ToString() +" "+ crouch+ " " + m_Jump);
             // pass all parameters to the character control script
             m_Character.Move(m_Move, crouch, m_Jump);
-            m_Jump = false;
+        m_Character.Actions(lightAttack, heavyAttack, rangedAttack);
+        
+        m_Jump = false;
+            
         }
     }
 

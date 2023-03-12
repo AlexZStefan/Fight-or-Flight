@@ -1985,6 +1985,13 @@ MonoBehaviour:
   m_Cam: {fileID: 0}
   m_CamForward: {x: 0, y: 0, z: 0}
   isMoving: 0
+  playerIndex: 0
+  movement: {x: 0, y: 0}
+  crouchPA: 0
+  jump: 0
+  rangedAttack: 0
+  lightAttack: 0
+  heavyAttack: 0
 --- !u!114 &2753309388730506732
 MonoBehaviour:
   m_ObjectHideFlags: 0

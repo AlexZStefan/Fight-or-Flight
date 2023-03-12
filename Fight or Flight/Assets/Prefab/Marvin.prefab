@@ -1856,7 +1856,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7199288038080550336}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 1e6983173a7ebd846acdfb860621147f, type: 3}
   m_Controller: {fileID: 9100000, guid: c1dd284f47a0e6e4d8a34b3689b44664, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -1904,6 +1904,12 @@ MonoBehaviour:
   m_CamForward: {x: 0, y: 0, z: 0}
   isMoving: 0
   playerIndex: 0
+  movement: {x: 0, y: 0}
+  crouchPA: 0
+  jump: 0
+  rangedAttack: 0
+  lightAttack: 0
+  heavyAttack: 0
 --- !u!1 &7209066091429595549
 GameObject:
   m_ObjectHideFlags: 0
