@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace UnityStandardAssets.Characters.ThirdPerson
-{
 	[RequireComponent(typeof(Rigidbody))]
 	[RequireComponent(typeof(CapsuleCollider))]
 	[RequireComponent(typeof(Animator))]
@@ -46,6 +44,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
 		}
 
+		public void Attack()
+		{
+
+		}
 
 		public void Move(Vector3 move, bool crouch, bool jump)
 		{
@@ -119,7 +121,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 		}
 
-
 		void UpdateAnimator(Vector3 move)
 		{
 			// update the animator parameters
@@ -170,13 +171,14 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		void HandleGroundedMovement(bool crouch, bool jump)
 		{
-			Debug.Log("ASDASA " + crouch);
-			Debug.Log("ASDm_Rigidbody.velocity.xASA" + m_Rigidbody.velocity.z);
-			Debug.Log("ASDASA "+ jump);
+			//Debug.Log("ASDASA " + crouch);
+			//Debug.Log("ASDm_Rigidbody.velocity.xASA" + m_Rigidbody.velocity.z);
+			//Debug.Log("ASDASA "+ jump);
+			
 			// check whether conditions are right to allow a jump:
 			if (jump && !crouch && m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
 			{
-				Debug.Log("ASDASA True");
+				//Debug.Log("ASDASA True");
 				// jump!
 				m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z);
 				m_IsGrounded = false;
@@ -245,4 +247,4 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 		}
 	}
-}
+
