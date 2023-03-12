@@ -1790,7 +1790,9 @@ GameObject:
   - component: {fileID: 7539820720360181626}
   - component: {fileID: 8009770143706229786}
   - component: {fileID: 8009770143706229784}
-  - component: {fileID: 8009770143706229787}
+  - component: {fileID: 5165152895176511464}
+  - component: {fileID: 4490363559267865255}
+  - component: {fileID: 6954396286894302908}
   m_Layer: 0
   m_Name: Marvin
   m_TagString: Player
@@ -1845,7 +1847,27 @@ CapsuleCollider:
   m_Height: 1.9
   m_Direction: 1
   m_Center: {x: 0, y: 0.92, z: 0}
---- !u!114 &8009770143706229787
+--- !u!95 &5165152895176511464
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7199288038080550336}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 1e6983173a7ebd846acdfb860621147f, type: 3}
+  m_Controller: {fileID: 9100000, guid: c1dd284f47a0e6e4d8a34b3689b44664, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4490363559267865255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1854,67 +1876,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 7199288038080550336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Script: {fileID: 11500000, guid: ce7a80d520cacc042b5fe14f373d8173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 154d118c65fbcb747a899011bb280826, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11500000, guid: b00372b304ef7294aad2a99ef54429e9, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 5c9df8ab-28ec-4f4c-aa8c-81b51291edb5
-    m_ActionName: Player/Movement[/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 61ab077c-cef5-4145-9016-6b5f9c1341c2
-    m_ActionName: Player/Crouch[/Keyboard/s]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4d2c3aa9-2d9f-4630-94bc-c2249197a995
-    m_ActionName: Player/Jump[/Keyboard/w]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a13dc598-bb63-40ba-a8d6-661af7760a9e
-    m_ActionName: Player/Light Attack[/Keyboard/q]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 478f0ccc-cda3-496a-8811-f2290c8070a6
-    m_ActionName: Player/Heavy Attack
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9afb541c-8db2-4a82-9ede-1d6cac42834d
-    m_ActionName: Player/Ranged Attack[/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e37e38db-40e6-4a80-8c43-eed06068ebaf
-    m_ActionName: Player/Ultimate Attack
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_MovingTurnSpeed: 360
+  m_StationaryTurnSpeed: 180
+  m_JumpPower: 12
+  m_GravityMultiplier: 2
+  m_RunCycleLegOffset: 0.2
+  m_MoveSpeedMultiplier: 1
+  m_AnimSpeedMultiplier: 1
+  m_GroundCheckDistance: 2
+  m_IsGrounded: 0
+--- !u!114 &6954396286894302908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7199288038080550336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 521b611700410be45810047f0a74e899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Cam: {fileID: 0}
+  m_CamForward: {x: 0, y: 0, z: 0}
+  isMoving: 0
+  playerIndex: 0
+  movement: {x: 0, y: 0}
+  crouchPA: 0
+  jump: 0
+  rangedAttack: 0
+  lightAttack: 0
+  heavyAttack: 0
 --- !u!1 &7209066091429595549
 GameObject:
   m_ObjectHideFlags: 0

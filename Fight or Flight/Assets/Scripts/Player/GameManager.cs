@@ -1,23 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public string mapSelected = "";
-
+    public bool gameStarted = false;
     public Player playerOne;
     public Player playerTwo;
-
+    public PlayerInputManager playerInputManager;
     public GameObject currentMap;
+    public GameObject playerInputPrefab;
+    public GameObject playerInputPrefab2;
 
     private void Awake()
     {
-        if (!instance)
-            instance = this;
+        foreach(var d in InputSystem.devices)
+        {
+            Debug.Log("Dev " + d.name);
+            Debug.Log("Dev " + d.displayName);
+        }
+
         playerOne = (Player)ScriptableObject.CreateInstance("Player");
         playerTwo = (Player)ScriptableObject.CreateInstance("Player");
+
+        playerInputManager = GetComponent<PlayerInputManager>();
+        playerInputManager.playerPrefab = playerInputPrefab;
+        Debug.Log("playerCount " + playerInputManager.playerCount);
+
+        if (!instance)
+            instance = this;
+
+        foreach(var gp in Gamepad.all) {
+            Debug.Log("Gamepad.all " + gp);
+        }
     }
 
     public void StartGame()
@@ -27,7 +45,7 @@ public class GameManager : MonoBehaviour
 
         // called from menu script uppond sellecting the map
         Debug.Log("GameStarted");
-
+        
         // Instantiate map 
         foreach (var v in MapSelector.instance.maps)
         {
@@ -49,6 +67,9 @@ public class GameManager : MonoBehaviour
             if (v.name == playerOne.characterSelected)
             {
                 playerOne.character = Instantiate(v);
+                playerOne.character.GetComponent<ThirdPersonUserControl>().playerIndex = 1;
+                
+                playerInputManager.JoinPlayer(1, 0, null, InputSystem.devices[0]);
                 playerOne.startingPosition = GameObject.Find("PlayerSpawn1").transform;
                 playerOne.character.transform.position = playerOne.startingPosition.position;
                 playerOne.character.transform.rotation = playerOne.startingPosition.rotation;
@@ -58,13 +79,19 @@ public class GameManager : MonoBehaviour
             if (v.name == playerTwo.characterSelected)
             {
                 playerTwo.character = Instantiate(v);
+                // assign character to the player input 
+                playerTwo.character.GetComponent<ThirdPersonUserControl>().playerIndex = 2;
+                playerInputManager.JoinPlayer(2, 0, null, InputSystem.devices[0]);
+                Debug.Log("Change to this when extra player controller");
+                //playerInputManager.JoinPlayer(2, 0, null, InputSystem.devices[1]);                 
                 playerTwo.startingPosition = GameObject.Find("PlayerSpawn2").transform;
                 playerTwo.character.transform.position = playerTwo.startingPosition.position;
                 playerTwo.character.transform.rotation = playerTwo.startingPosition.rotation;
                 Debug.Log("Spawned P2: " + v.name);
             }        
         }
-
+        Debug.Log("second playerCount " + playerInputManager.playerCount);
+                
         GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().AddMember(playerOne.character.transform,2,0);
         GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().AddMember(playerTwo.character.transform,2,0);
 
@@ -73,12 +100,16 @@ public class GameManager : MonoBehaviour
         CharSelection.instance.ChangeAvatarImage(2);
         Menu.instance.ActivateInGameUI();
         AudioManager.instance.inGameMusic.start();
+
+
+        gameStarted = true;
     }
 
     // cleans player selections
     public void EndGame()
     {
-        Debug.Log("Game Ended");        
+        Debug.Log("Game Ended");
+        gameStarted = false;
         // music
         AudioManager.instance.inGameMusic.setParameterByName("Loop", 0);
 
