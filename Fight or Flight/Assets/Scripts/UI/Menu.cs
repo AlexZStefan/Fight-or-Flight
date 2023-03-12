@@ -58,7 +58,7 @@ public class Menu : MonoBehaviour
             characterButtons[i].GetComponent<Text>().text = InGameCharacters.instance.characters[i].name;
             characterButtons[i].name = InGameCharacters.instance.characters[i].name;
         }
-
+        
         // set text name to each map 
         // add event listeners
 

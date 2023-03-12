@@ -8,7 +8,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 	[RequireComponent(typeof(Animator))]
 
 	public class ThirdPersonCharacter : MonoBehaviour
-	{	
+	{
+		private PlayerAct playerActions;
+		private float melee;
 		// movement
 		[SerializeField] float m_MovingTurnSpeed = 360;
 		[SerializeField] float m_StationaryTurnSpeed = 180;
@@ -31,6 +33,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
+
+		public bool m_IsMeelee;
 
 		public UnityAction jumpTriggered;
 
@@ -75,7 +79,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			
 			ScaleCapsuleForCrouching(crouch);
 			PreventStandingInLowHeadroom();
-
 			// send input and other state parameters to the animator
 			UpdateAnimator(move);
 		}
@@ -83,13 +86,14 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		void ScaleCapsuleForCrouching(bool crouch)
 		{
+
 			if (m_IsGrounded && crouch)
 			{
-				if (m_Crouching) return;
-				m_Capsule.height = m_Capsule.height / 2f;
-				m_Capsule.center = m_Capsule.center / 2f;
-				m_Crouching = true;
-			}
+                if (m_Crouching) return;
+                m_Capsule.height = m_Capsule.height / 2f;
+                m_Capsule.center = m_Capsule.center / 2f;
+                m_Crouching = true;
+            }
 			else
 			{
 				Ray crouchRay = new Ray(m_Rigidbody.position + Vector3.up * m_Capsule.radius * k_Half, Vector3.up);
@@ -127,7 +131,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
 			m_Animator.SetBool("Crouch", m_Crouching);
 			m_Animator.SetBool("OnGround", m_IsGrounded);
-			if (!m_IsGrounded)
+            m_Animator.SetBool("Meelee", m_IsMeelee);
+
+            if (!m_IsGrounded)
 			{
 				m_Animator.SetFloat("Jump", m_Rigidbody.velocity.y);
 			}
@@ -157,7 +163,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 		}
 
-
 		void HandleAirborneMovement()
 		{
 			// apply extra gravity from multiplier:
@@ -170,18 +175,20 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		void HandleGroundedMovement(bool crouch, bool jump)
 		{
-			Debug.Log("ASDASA " + crouch);
+			/*Debug.Log("ASDASA " + crouch);
 			Debug.Log("ASDm_Rigidbody.velocity.xASA" + m_Rigidbody.velocity.z);
-			Debug.Log("ASDASA "+ jump);
+			Debug.Log("ASDASA "+ jump);*/
+
 			// check whether conditions are right to allow a jump:
 			if (jump && !crouch && m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
 			{
-				Debug.Log("ASDASA True");
+				//Debug.Log("ASDASA True");
 				// jump!
 				m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z);
 				m_IsGrounded = false;
 				m_Animator.applyRootMotion = false;
 				m_GroundCheckDistance = 0.5f;
+				m_IsMeelee = true;
 
                 try
                 {
@@ -218,7 +225,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 		}
 
-
 		void CheckGroundStatus()
 		{
 			RaycastHit hitInfo;
@@ -226,7 +232,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			// helper to visualise the ground check ray in the scene view
 			Debug.DrawLine(transform.position + (Vector3.up * 0.1f), transform.position + (Vector3.up * 0.1f) + (Vector3.down * m_GroundCheckDistance));
 #endif
-				Debug.Log("Floor hit");
+				//Debug.Log("Floor hit");
 			// 0.1f is a small offset to start the ray from inside the character
 			// it is also good to note that the transform position in the sample assets is at the base of the character
 			if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, m_GroundCheckDistance))
@@ -234,7 +240,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_GroundNormal = hitInfo.normal;
 				m_IsGrounded = true;
 				m_Animator.applyRootMotion = true;
-				Debug.Log("Floor hit");
+				//Debug.Log("Floor hit");
 
 			}
 			else
