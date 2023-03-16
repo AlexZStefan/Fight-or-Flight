@@ -81,9 +81,9 @@ public class GameManager : MonoBehaviour
                 playerTwo.character = Instantiate(v);
                 // assign character to the player input 
                 playerTwo.character.GetComponent<ThirdPersonUserControl>().playerIndex = 2;
-                playerInputManager.JoinPlayer(2, 0, null, InputSystem.devices[0]);
+               // playerInputManager.JoinPlayer(2, 0, null, InputSystem.devices[0]);
                 Debug.Log("Change to this when extra player controller");
-                //playerInputManager.JoinPlayer(2, 0, null, InputSystem.devices[1]);                 
+               playerInputManager.JoinPlayer(2);                 
                 playerTwo.startingPosition = GameObject.Find("PlayerSpawn2").transform;
                 playerTwo.character.transform.position = playerTwo.startingPosition.position;
                 playerTwo.character.transform.rotation = playerTwo.startingPosition.rotation;

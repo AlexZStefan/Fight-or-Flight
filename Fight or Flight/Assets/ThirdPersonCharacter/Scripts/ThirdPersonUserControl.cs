@@ -118,13 +118,8 @@ using UnityEngine.InputSystem;
                 
             }       
 
-#if !MOBILE_INPUT
-            // walk speed multiplier
-            if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
-            
-#endif
 
-            Debug.Log(m_Move.ToString() +" "+ crouch+ " " + m_Jump);
+           // Debug.Log(m_Move.ToString() +" "+ crouch+ " " + m_Jump);
             // pass all parameters to the character control script
             m_Character.Move(m_Move, crouch, m_Jump);
         m_Character.Actions(lightAttack, heavyAttack, rangedAttack);

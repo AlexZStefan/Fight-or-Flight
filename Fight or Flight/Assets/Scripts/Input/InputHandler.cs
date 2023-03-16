@@ -33,7 +33,7 @@ public class InputHandler : MonoBehaviour
                         // Debug.Log("InputSystem dev " + InputSystem.devices);
                         //InputSystem.AddDevice<Keyboard>();
                         // pInput.SwitchCurrentControlScheme("Player2", InputSystem.devices[0]);
-                        pInput.SwitchCurrentActionMap("Player2");
+                       // pInput.SwitchCurrentActionMap("Player2");
 
                     }
                     userControl = c;
