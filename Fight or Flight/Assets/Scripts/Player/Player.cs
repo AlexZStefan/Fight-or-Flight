@@ -26,20 +26,20 @@ public class Player : ScriptableObject
 
     public void KillPlayer()
     {
-        Debug.Log("Player died");
         lives--;
         var spawnZone = GameObject.Find("SpawnZone");
         Vector3 respawn = GameObject.Find("SpawnZone").transform.position + spawnZone.transform.localScale;
         character.transform.position = new Vector3(Random.Range(-respawn.x, respawn.x), spawnZone.transform.position.y, 0);
 
-        Debug.Log("Player lives " + lives);
     }
 
     public void LowPunch()
     {
         stamina -= lowPunch;
-        Debug.Log(stamina);
 
+        var rb = character.transform.GetComponent<Rigidbody>();
+        
+        rb.AddForce(new Vector3(-50, 1, 0), ForceMode.Impulse);
         GameObject.Find("HealthBarP2").GetComponent<Slider>().value = stamina;
     }
 
