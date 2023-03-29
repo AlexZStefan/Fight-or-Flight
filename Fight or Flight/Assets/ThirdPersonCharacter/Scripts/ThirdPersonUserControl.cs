@@ -124,7 +124,6 @@ using UnityEngine.InputSystem;
             
 #endif
 
-            Debug.Log(m_Move.ToString() +" "+ crouch+ " " + m_Jump);
             // pass all parameters to the character control script
             m_Character.Move(m_Move, crouch, m_Jump);
         m_Character.Actions(lightAttack, heavyAttack, rangedAttack);

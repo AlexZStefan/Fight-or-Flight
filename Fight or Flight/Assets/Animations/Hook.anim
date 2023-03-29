@@ -28683,4 +28683,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.7698629
+    functionName: LowPunchRight
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: b7b81d6fdb1701045b470aa5b45a0bc2, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

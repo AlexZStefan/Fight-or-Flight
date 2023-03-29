@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
@@ -7,6 +8,7 @@ using UnityEngine.Events;
 
 public class ThirdPersonCharacter : MonoBehaviour
 {
+
     // movement
     [SerializeField] float m_MovingTurnSpeed = 360;
     [SerializeField] float m_StationaryTurnSpeed = 180;
@@ -16,6 +18,10 @@ public class ThirdPersonCharacter : MonoBehaviour
     [SerializeField] float m_MoveSpeedMultiplier = 1f;
     [SerializeField] float m_AnimSpeedMultiplier = 1f;
     [SerializeField] float m_GroundCheckDistance = 2f;
+    Action handColR;
+    Action handColL;
+    Action kickColR;
+    Action kickColL; 
 
     Rigidbody m_Rigidbody;
     Animator m_Animator;
@@ -33,6 +39,32 @@ public class ThirdPersonCharacter : MonoBehaviour
 
     public UnityAction jumpTriggered;
 
+    public void InitCharacter()
+    {
+        // animation attack init
+        var ev = GetComponent<Animator>().runtimeAnimatorController.animationClips;
+
+        foreach (var t in transform.GetComponentsInChildren<Collider>())
+        {
+            if (t.transform.name == "HandColR")
+                handColR = t.GetComponent<Action>();
+            if (t.transform.name == "HandColL")
+                handColL = t.GetComponent<Action>();
+            if (t.transform.name == "KickColR")
+                kickColR = t.GetComponent<Action>();
+            if (t.transform.name == "KickColL")
+                kickColL = t.GetComponent<Action>();
+        };
+
+        foreach (var v in ev)
+        {
+            if (v.events.Length > 0)
+            {
+                v.events[0].objectReferenceParameter = this;
+            }
+        };
+    }
+
     void Start()
     {
         m_Animator = GetComponent<Animator>();
@@ -42,7 +74,48 @@ public class ThirdPersonCharacter : MonoBehaviour
         m_CapsuleCenter = m_Capsule.center;
 
         m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-        m_OrigGroundCheckDistance = m_GroundCheckDistance;
+        m_OrigGroundCheckDistance = m_GroundCheckDistance;        
+    }
+
+    IEnumerator CheckForCollision(Action action)
+    {
+        action.transform.GetComponent<Collider>().enabled = true;
+        yield return new WaitForSeconds(0.2f);
+        action.transform.GetComponent<Collider>().enabled = false;
+        yield return null;
+    }
+
+    public void LowPunchRight()
+    {
+        //playerStamina -= 10;
+        handColR.wasTriggered = false;
+        StartCoroutine(CheckForCollision(handColR));
+    }
+
+    public void LowPunchLeft()
+    {
+        handColL.wasTriggered = false;
+        StartCoroutine(CheckForCollision(handColL));
+    }
+
+    public void KickRight()
+    {
+        kickColR.wasTriggered = false;
+        StartCoroutine(CheckForCollision(kickColR));
+
+    }
+
+    public void KickLeft()
+    {
+        kickColL.wasTriggered = false;
+        StartCoroutine(CheckForCollision(kickColL));
+
+    }
+
+    public void HighPunch()
+    {
+        //
+
     }
 
     // Handles Actions animation of character
@@ -53,11 +126,12 @@ public class ThirdPersonCharacter : MonoBehaviour
         {
             m_Animator.SetBool("Punch", true);
             mirrorAction = mirrorAction == false ? true : false;
-            m_Animator.SetBool("Mirror", mirrorAction);
+            m_Animator.SetBool("Mirror", mirrorAction);          
+
         }
         else
         {
-            m_Animator.SetBool("Punch", false);
+            m_Animator.SetBool("Punch", false);            
         }
         // kicking 
         if (kick > 0.1f)
@@ -68,7 +142,7 @@ public class ThirdPersonCharacter : MonoBehaviour
         }
         else
         {
-            m_Animator.SetBool("Kick", false);
+            m_Animator.SetBool("Kick", false);            
         }
 
         // special 
@@ -231,7 +305,7 @@ public class ThirdPersonCharacter : MonoBehaviour
             catch
             {
                 Debug.Log("Error TPC");
-                Debug.DebugBreak();
+                //Debug.DebugBreak();
             }
         }
     }
@@ -266,7 +340,7 @@ public class ThirdPersonCharacter : MonoBehaviour
         // helper to visualise the ground check ray in the scene view
         Debug.DrawLine(transform.position + (Vector3.up * 0.1f), transform.position + (Vector3.up * 0.1f) + (Vector3.down * m_GroundCheckDistance));
 #endif
-        Debug.Log("Floor hit");
+        
         // 0.1f is a small offset to start the ray from inside the character
         // it is also good to note that the transform position in the sample assets is at the base of the character
         if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, m_GroundCheckDistance))
@@ -274,7 +348,7 @@ public class ThirdPersonCharacter : MonoBehaviour
             m_GroundNormal = hitInfo.normal;
             m_IsGrounded = true;
             m_Animator.applyRootMotion = true;
-            Debug.Log("Floor hit");
+           
 
         }
         else

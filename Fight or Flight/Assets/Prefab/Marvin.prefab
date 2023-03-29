@@ -1793,6 +1793,7 @@ GameObject:
   - component: {fileID: 5165152895176511464}
   - component: {fileID: 4490363559267865255}
   - component: {fileID: 6954396286894302908}
+  - component: {fileID: 417942172809604876}
   m_Layer: 0
   m_Name: Marvin
   m_TagString: Player
@@ -1842,8 +1843,8 @@ CapsuleCollider:
   m_GameObject: {fileID: 7199288038080550336}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.15
+  m_Enabled: 0
+  m_Radius: 0.3
   m_Height: 1.9
   m_Direction: 1
   m_Center: {x: 0, y: 0.92, z: 0}
@@ -1910,6 +1911,19 @@ MonoBehaviour:
   rangedAttack: 0
   lightAttack: 0
   heavyAttack: 0
+--- !u!65 &417942172809604876
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7199288038080550336}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.01, y: 1.83, z: 0.25}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &7209066091429595549
 GameObject:
   m_ObjectHideFlags: 0
