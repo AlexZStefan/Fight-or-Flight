@@ -71,10 +71,7 @@ using UnityEngine.InputSystem;
         {
             if (!m_Jump)
             {
-                m_Jump = jump > 0.1 ? true : false;
-           
-
-
+                m_Jump = jump > 0.1 ? true : false;         
             }
         }
 

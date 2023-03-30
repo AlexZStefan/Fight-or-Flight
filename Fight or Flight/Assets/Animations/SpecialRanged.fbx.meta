@@ -61,7 +61,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.8050002
-        functionName: LowPunchRight
+        functionName: Ultimate
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

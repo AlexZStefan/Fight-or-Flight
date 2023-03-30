@@ -102,6 +102,7 @@ MonoBehaviour:
   wasTriggered: 0
   damage: 10
   healthBar: {fileID: 0}
+  ultimate: 1
 --- !u!1 &337436312012538953
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +556,7 @@ MonoBehaviour:
   wasTriggered: 0
   damage: 10
   healthBar: {fileID: 0}
+  ultimate: 1
 --- !u!1 &1848192898824407637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1928,6 +1930,7 @@ MonoBehaviour:
   wasTriggered: 0
   damage: 10
   healthBar: {fileID: 0}
+  ultimate: 1
 --- !u!1 &6708037911069536111
 GameObject:
   m_ObjectHideFlags: 0
@@ -2030,6 +2033,7 @@ MonoBehaviour:
   wasTriggered: 0
   damage: 10
   healthBar: {fileID: 0}
+  ultimate: 1
 --- !u!1 &6749602246765532736
 GameObject:
   m_ObjectHideFlags: 0
@@ -2224,11 +2228,11 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 18
-  m_GravityMultiplier: 2
+  m_GravityMultiplier: 3
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
-  m_GroundCheckDistance: 0.1
+  m_GroundCheckDistance: 0.3
   m_IsGrounded: 0
 --- !u!54 &8290013635564161490
 Rigidbody:
@@ -2254,12 +2258,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7249743694966572854}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   m_Radius: 0.3
   m_Height: 1.9
   m_Direction: 1
-  m_Center: {x: 0, y: 0.92, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!65 &446071580919016435
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2271,7 +2275,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.55, y: 1.83, z: 0.31}
+  m_Size: {x: 1.81, y: 1.83, z: 0.5}
   m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &7578991772739210142
 GameObject:

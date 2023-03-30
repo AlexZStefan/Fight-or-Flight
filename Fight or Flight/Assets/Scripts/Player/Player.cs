@@ -31,5 +31,6 @@ public class Player : ScriptableObject
         var spawnZone = GameObject.Find("SpawnZone");
         Vector3 respawn = GameObject.Find("SpawnZone").transform.position + spawnZone.transform.localScale;
         character.transform.position = new Vector3(Random.Range(-respawn.x, respawn.x), spawnZone.transform.position.y, 0);
+        stamina = 100;
     }
 }

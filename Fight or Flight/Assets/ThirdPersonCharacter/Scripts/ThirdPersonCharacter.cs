@@ -82,6 +82,7 @@ public class ThirdPersonCharacter : MonoBehaviour
         action.transform.GetComponent<Collider>().enabled = true;
         yield return new WaitForSeconds(0.2f);
         action.transform.GetComponent<Collider>().enabled = false;
+        handColL.ultimate = 1;
         yield return null;
     }
 
@@ -90,18 +91,24 @@ public class ThirdPersonCharacter : MonoBehaviour
         //playerStamina -= 10;
         handColR.wasTriggered = false;
         StartCoroutine(CheckForCollision(handColR));
+        AudioManager.instance.PlayOneShot(FModEvents.instance.punch, Vector3.zero);
     }
 
     public void LowPunchLeft()
     {
         handColL.wasTriggered = false;
         StartCoroutine(CheckForCollision(handColL));
+        AudioManager.instance.PlayOneShot(FModEvents.instance.punch, Vector3.zero);
+
     }
 
     public void KickRight()
     {
         kickColR.wasTriggered = false;
         StartCoroutine(CheckForCollision(kickColR));
+
+        AudioManager.instance.PlayOneShot(FModEvents.instance.kick, Vector3.zero);
+
 
     }
 
@@ -110,11 +117,17 @@ public class ThirdPersonCharacter : MonoBehaviour
         kickColL.wasTriggered = false;
         StartCoroutine(CheckForCollision(kickColL));
 
+        AudioManager.instance.PlayOneShot(FModEvents.instance.kick, Vector3.zero);
+
+
     }
 
-    public void HighPunch()
+    public void Ultimate()
     {
-        //
+        handColL.ultimate = 5;
+        handColL.wasTriggered = false;
+        StartCoroutine(CheckForCollision(handColL));
+        AudioManager.instance.PlayOneShot(FModEvents.instance.block, Vector3.zero);
 
     }
 
@@ -155,11 +168,8 @@ public class ThirdPersonCharacter : MonoBehaviour
         else
         {
             m_Animator.SetBool("Range", false);
-        }
-     
-
+        }    
     }
-
 
     public void Move(Vector3 move, bool crouch, bool jump)
     {
@@ -193,7 +203,6 @@ public class ThirdPersonCharacter : MonoBehaviour
         // send input and other state parameters to the animator
         UpdateAnimator(move);
     }
-
 
     void ScaleCapsuleForCrouching(bool crouch)
     {
@@ -270,7 +279,6 @@ public class ThirdPersonCharacter : MonoBehaviour
         }
     }
 
-
     void HandleAirborneMovement()
     {
         // apply extra gravity from multiplier:
@@ -279,7 +287,6 @@ public class ThirdPersonCharacter : MonoBehaviour
 
         m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
     }
-
 
     void HandleGroundedMovement(bool crouch, bool jump)
     {
@@ -343,12 +350,12 @@ public class ThirdPersonCharacter : MonoBehaviour
         
         // 0.1f is a small offset to start the ray from inside the character
         // it is also good to note that the transform position in the sample assets is at the base of the character
+
         if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, m_GroundCheckDistance))
         {
             m_GroundNormal = hitInfo.normal;
             m_IsGrounded = true;
-            m_Animator.applyRootMotion = true;
-           
+            m_Animator.applyRootMotion = true;         
 
         }
         else

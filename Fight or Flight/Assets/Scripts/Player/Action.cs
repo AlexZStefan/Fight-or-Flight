@@ -8,6 +8,7 @@ public class Action : MonoBehaviour
     public bool wasTriggered = false;
     public int damage = 10;
     public Slider healthBar;
+    public int ultimate = 1;
 
     private void OnTriggerEnter(Collider other)
     {        
@@ -44,8 +45,19 @@ public class Action : MonoBehaviour
                 // Play character get hit animation 
             }
 
-            rb.AddForce(new Vector3(-directionOfPush.x * (100 - staminaLeft), 1, 0), ForceMode.Impulse);
+            if (GameManager.instance.playerTwo.stamina < 1)
+            {
+             rb.AddForce(new Vector3(-directionOfPush.x * (100 - staminaLeft) * ultimate, 1, 0), ForceMode.Impulse);
 
+            }
+            else
+            {
+                rb.AddForce(new Vector3(-directionOfPush.x *(100 - staminaLeft), 5, 0), ForceMode.Impulse);
+
+            }
+
+
+            AudioManager.instance.PlayOneShot(FModEvents.instance.block, Vector3.zero);
             transform.GetComponent<Collider>().enabled = false;
             wasTriggered = true;
         }
