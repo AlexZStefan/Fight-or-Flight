@@ -134,7 +134,6 @@ public class ThirdPersonCharacter : MonoBehaviour
     // Handles Actions animation of character
     public void Actions(float punch, float kick, float ranged)
     {
-        m_Animator.applyRootMotion = false;
         if (punch > 0.1f)
         {
             m_Animator.SetBool("Punch", true);
@@ -301,7 +300,6 @@ public class ThirdPersonCharacter : MonoBehaviour
             // jump!
             m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z);
             m_IsGrounded = false;
-            m_Animator.applyRootMotion = false;
             m_GroundCheckDistance = 0.5f;
 
             try
@@ -343,10 +341,10 @@ public class ThirdPersonCharacter : MonoBehaviour
     void CheckGroundStatus()
     {
         RaycastHit hitInfo;
-#if UNITY_EDITOR
-        // helper to visualise the ground check ray in the scene view
-        Debug.DrawLine(transform.position + (Vector3.up * 0.1f), transform.position + (Vector3.up * 0.1f) + (Vector3.down * m_GroundCheckDistance));
-#endif
+//#if UNITY_EDITOR
+//        // helper to visualise the ground check ray in the scene view
+//        Debug.DrawLine(transform.position + (Vector3.up * 0.1f), transform.position + (Vector3.up * 0.1f) + (Vector3.down * m_GroundCheckDistance));
+//#endif
         
         // 0.1f is a small offset to start the ray from inside the character
         // it is also good to note that the transform position in the sample assets is at the base of the character
@@ -355,14 +353,12 @@ public class ThirdPersonCharacter : MonoBehaviour
         {
             m_GroundNormal = hitInfo.normal;
             m_IsGrounded = true;
-            m_Animator.applyRootMotion = true;         
 
         }
         else
         {
             m_IsGrounded = false;
             m_GroundNormal = Vector3.up;
-            m_Animator.applyRootMotion = false;
         }
     }
 }
