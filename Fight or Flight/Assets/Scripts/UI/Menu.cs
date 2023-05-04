@@ -12,10 +12,18 @@ public class Menu : MonoBehaviour
     GameObject CharSelectMenu;
     [SerializeField]
     GameObject MapSelectMenu;
+    [SerializeField]
+    GameObject LanguageMenu;
     //[SerializeField]
     //GameObject BackgroundImage; 
     [SerializeField]
     GameObject InGameUI;
+
+    public GameObject pauseMenu;
+    public GameObject winMenu;
+    [SerializeField]
+    GameObject PSButton;
+
     public GameObject AvatarP1;
     public GameObject AvatarP2;
 
@@ -89,13 +97,36 @@ public class Menu : MonoBehaviour
         {
             AudioManager.instance.menuMusic.start();
         }
+
+        LanguageMenu.GetComponentInChildren<Button>().Select();
+    }
+
+    public void Restart()
+    {
+        GameManager.instance.ResetGame();
+    }
+
+    public void PlayMenuMusic()
+    {
+        AudioManager.instance.menuMusic.start();
+    }
+
+    public void Resume()
+    {
+        PSButton.SetActive(false);
+        pauseMenu.SetActive(false);
     }
 
     public void ReturnToMainMenu()
     {
         MainMenu.SetActive(true);
         MapSelectMenu.SetActive(false);
-        CharSelectMenu.SetActive(false);      
+        CharSelectMenu.SetActive(false);
+        PSButton.SetActive(false);
+        pauseMenu.SetActive(false);
+        winMenu.SetActive(false);
+        LanguageMenu.SetActive(false);
+        MainMenu.GetComponentInChildren<Button>().Select();
     }
 
     public void ToogleCharSelectMenu()

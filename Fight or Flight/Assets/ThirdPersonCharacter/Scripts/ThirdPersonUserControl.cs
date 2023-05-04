@@ -80,6 +80,9 @@ using UnityEngine.InputSystem;
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
+
+       
+
             // fix the character on the right z axis
             transform.position = new Vector3(transform.position.x, transform.position.y, 0);
             
@@ -127,6 +130,7 @@ using UnityEngine.InputSystem;
         
         m_Jump = false;
             
-        }
     }
+
+}
 

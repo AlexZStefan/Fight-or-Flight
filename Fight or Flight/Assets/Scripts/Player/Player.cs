@@ -8,7 +8,7 @@ public class Player : ScriptableObject
     // right hand colider = "HandColR" 
     public GameObject character;
     public string characterSelected = "";
-    public int lives = 3;
+    public int lives = 4;
     public Transform startingPosition;
     
     public float stamina = 100;

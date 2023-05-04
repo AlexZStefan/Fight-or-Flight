@@ -89,6 +89,15 @@ public partial class @PlayerAct : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""6a3f0bfc-5d82-419f-b236-fe089c203c7e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -298,6 +307,28 @@ public partial class @PlayerAct : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Ultimate Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b97d6a5a-ff8a-4e81-97e9-ee1977a896ad"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bedff507-5144-45ff-985c-70f536ba341d"",
+                    ""path"": ""<DualShockGamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -584,6 +615,7 @@ public partial class @PlayerAct : IInputActionCollection2, IDisposable
         m_Player_HeavyAttack = m_Player.FindAction("Heavy Attack", throwIfNotFound: true);
         m_Player_RangedAttack = m_Player.FindAction("Ranged Attack", throwIfNotFound: true);
         m_Player_UltimateAttack = m_Player.FindAction("Ultimate Attack", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         // Player2
         m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
         m_Player2_Movement = m_Player2.FindAction("Movement", throwIfNotFound: true);
@@ -659,6 +691,7 @@ public partial class @PlayerAct : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_HeavyAttack;
     private readonly InputAction m_Player_RangedAttack;
     private readonly InputAction m_Player_UltimateAttack;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @PlayerAct m_Wrapper;
@@ -670,6 +703,7 @@ public partial class @PlayerAct : IInputActionCollection2, IDisposable
         public InputAction @HeavyAttack => m_Wrapper.m_Player_HeavyAttack;
         public InputAction @RangedAttack => m_Wrapper.m_Player_RangedAttack;
         public InputAction @UltimateAttack => m_Wrapper.m_Player_UltimateAttack;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -700,6 +734,9 @@ public partial class @PlayerAct : IInputActionCollection2, IDisposable
                 @UltimateAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUltimateAttack;
                 @UltimateAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUltimateAttack;
                 @UltimateAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUltimateAttack;
+                @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -725,6 +762,9 @@ public partial class @PlayerAct : IInputActionCollection2, IDisposable
                 @UltimateAttack.started += instance.OnUltimateAttack;
                 @UltimateAttack.performed += instance.OnUltimateAttack;
                 @UltimateAttack.canceled += instance.OnUltimateAttack;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -819,6 +859,7 @@ public partial class @PlayerAct : IInputActionCollection2, IDisposable
         void OnHeavyAttack(InputAction.CallbackContext context);
         void OnRangedAttack(InputAction.CallbackContext context);
         void OnUltimateAttack(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IPlayer2Actions
     {

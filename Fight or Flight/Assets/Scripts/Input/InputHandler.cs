@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class InputHandler : MonoBehaviour
@@ -41,15 +42,27 @@ public class InputHandler : MonoBehaviour
         }
     }
 
+    public void PauseGame(InputAction.CallbackContext context)
+    {
+        GameManager.instance.isPaused = !GameManager.instance.isPaused;
+
+        Menu.instance.pauseMenu.SetActive(GameManager.instance.isPaused);
+
+        Menu.instance.pauseMenu.GetComponentInChildren<Button>().Select();
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
+    
         userControl.movement = context.ReadValue<Vector2>();
+
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        
-          userControl.jump = context.ReadValue<float>();
+    
+
+        userControl.jump = context.ReadValue<float>();
     
     }
 
@@ -64,12 +77,15 @@ public class InputHandler : MonoBehaviour
     }
 
     public void OnRangedAttack(InputAction.CallbackContext context)
-    {        
+    {
+     
         userControl.rangedAttack = context.ReadValue<float>();
     }
 
     public void OnHeavyAttack(InputAction.CallbackContext context)
-    {       
+    {
+      
         userControl.heavyAttack = context.ReadValue<float>();
+
     }
 }

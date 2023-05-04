@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
@@ -14,11 +15,9 @@ public class GameManager : MonoBehaviour
     public GameObject currentMap;
     public GameObject playerInputPrefab;
     public GameObject playerInputPrefab2;
-
+    public bool isPaused = false;
     private void Awake()
-    {
-   
-
+    {  
         playerOne = (Player)ScriptableObject.CreateInstance("Player");
         playerTwo = (Player)ScriptableObject.CreateInstance("Player");
 
@@ -26,18 +25,16 @@ public class GameManager : MonoBehaviour
         playerInputManager.playerPrefab = playerInputPrefab;
 
         if (!instance)
-            instance = this;
-
-   
+            instance = this;   
     }
 
     public void StartGame()
     {
-       // GameManager.instance.playerOne.characterSelected = InGameCharacters.instance.characters[0].name;
-       // GameManager.instance.mapSelected = MapSelector.instance.maps[0].name;
-
+        // GameManager.instance.playerOne.characterSelected = InGameCharacters.instance.characters[0].name;
+        // GameManager.instance.mapSelected = MapSelector.instance.maps[0].name;
+        GameManager.instance.isPaused = false;
         // called from menu script uppond sellecting the map
-        
+
         // Instantiate map 
         foreach (var v in MapSelector.instance.maps)
         {
@@ -96,13 +93,58 @@ public class GameManager : MonoBehaviour
         Menu.instance.ActivateInGameUI();
         AudioManager.instance.inGameMusic.start();
 
-
         gameStarted = true;
+    }
+
+    private void Update()
+    {
+        if (gameStarted && (playerOne.lives < 0 || playerTwo.lives < 0))
+        {
+            if(playerOne.lives < 0)
+            {
+                Menu.instance.winMenu.transform.Find("Win").GetComponent<Text>().text = "Player 2 wins!";
+            }
+            else
+            {
+                Menu.instance.winMenu.transform.Find("Win").GetComponent<Text>().text = "Player 1 wins!";
+            }
+            gameStarted = false;
+            Menu.instance.winMenu.SetActive(true);
+            isPaused = true;
+            Menu.instance.winMenu.GetComponentInChildren<Button>().Select();
+        }
+    }
+
+    public void ResetGame()
+    {
+        Menu.instance.winMenu.SetActive(false);
+        gameStarted = true;
+        isPaused = false;
+        playerTwo.startingPosition = GameObject.Find("PlayerSpawn2").transform;
+        playerTwo.character.transform.position = playerTwo.startingPosition.position;
+        playerTwo.character.transform.rotation = playerTwo.startingPosition.rotation;
+
+        playerOne.startingPosition = GameObject.Find("PlayerSpawn1").transform;
+        playerOne.character.transform.position = playerOne.startingPosition.position;
+        playerOne.character.transform.rotation = playerOne.startingPosition.rotation;
+
+        GameObject.Find("HealthBarP1").GetComponent<Slider>().value = 100;
+  
+                playerOne.stamina = 100;
+
+        GameObject.Find("HealthBarP2").GetComponent<Slider>().value = 100;
+
+        playerTwo.stamina = 100;
+
+        playerOne.lives = 4;
+        playerTwo.lives = 4;
     }
 
     // cleans player selections
     public void EndGame()
     {
+        CleanUpRound();
+        Menu.instance.PlayMenuMusic();
         gameStarted = false;
         // music
         AudioManager.instance.inGameMusic.setParameterByName("Loop", 0);
@@ -113,12 +155,20 @@ public class GameManager : MonoBehaviour
         GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().RemoveMember(playerOne.character.transform);
         GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().RemoveMember(playerTwo.character.transform);
 
+        PlayerInput []inputs = GameObject.FindObjectsOfType<PlayerInput>();
+
+        foreach(var i in inputs)
+        {
+            Destroy(i.gameObject);
+        }
         // data
         playerOne.CleanPlayer();
         playerTwo.CleanPlayer();
         Destroy(currentMap);
         currentMap = null;
     }    
+
+
 
     void CleanUpRound()
     {
