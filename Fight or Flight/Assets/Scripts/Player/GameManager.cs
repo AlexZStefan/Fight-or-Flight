@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour
     public GameObject currentMap;
     public GameObject playerInputPrefab;
     public GameObject playerInputPrefab2;
-    public bool isPaused = false;
+    public bool isPaused = true;
+    public Text countdown;
+
     private void Awake()
     {  
         playerOne = (Player)ScriptableObject.CreateInstance("Player");
@@ -32,7 +34,7 @@ public class GameManager : MonoBehaviour
     {
         // GameManager.instance.playerOne.characterSelected = InGameCharacters.instance.characters[0].name;
         // GameManager.instance.mapSelected = MapSelector.instance.maps[0].name;
-        GameManager.instance.isPaused = false;
+       
         // called from menu script uppond sellecting the map
 
         // Instantiate map 
@@ -94,10 +96,33 @@ public class GameManager : MonoBehaviour
         AudioManager.instance.inGameMusic.start();
 
         gameStarted = true;
+        isPaused = true;
+
+        StartCoroutine(starGameCountdown());
+    }
+
+    IEnumerator starGameCountdown()
+    {
+        countdown.gameObject.SetActive(true);
+        for (int i = 3; i >= 0; i--)
+        {
+            countdown.text = i.ToString();
+            
+            if(i == 0)
+            {
+                countdown.text = "Fight!";
+            }
+            yield return new WaitForSeconds(1);
+
+        }
+        isPaused = false;
+        countdown.gameObject.SetActive(false);
     }
 
     private void Update()
     {
+        
+
         if (gameStarted && (playerOne.lives < 0 || playerTwo.lives < 0))
         {
             if(playerOne.lives < 0)
@@ -117,9 +142,10 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
+        
         Menu.instance.winMenu.SetActive(false);
         gameStarted = true;
-        isPaused = false;
+        
         playerTwo.startingPosition = GameObject.Find("PlayerSpawn2").transform;
         playerTwo.character.transform.position = playerTwo.startingPosition.position;
         playerTwo.character.transform.rotation = playerTwo.startingPosition.rotation;
@@ -138,6 +164,8 @@ public class GameManager : MonoBehaviour
 
         playerOne.lives = 4;
         playerTwo.lives = 4;
+
+        StartCoroutine(starGameCountdown());
     }
 
     // cleans player selections
