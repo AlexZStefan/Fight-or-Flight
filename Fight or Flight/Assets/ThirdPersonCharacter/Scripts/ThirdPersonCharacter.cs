@@ -67,6 +67,9 @@ public class ThirdPersonCharacter : MonoBehaviour
 
     void Start()
     {
+
+
+
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();
@@ -357,8 +360,7 @@ public class ThirdPersonCharacter : MonoBehaviour
             }
         }
     }
-
-
+    
     void CheckGroundStatus()
     {
         if (GameManager.instance.isPaused == false)

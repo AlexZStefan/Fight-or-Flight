@@ -19,7 +19,10 @@ public class GameManager : MonoBehaviour
     public Text countdown;
 
     private void Awake()
-    {  
+    {
+        QualitySettings.vSyncCount = 1;
+       // Application.targetFrameRate = 60;
+
         playerOne = (Player)ScriptableObject.CreateInstance("Player");
         playerTwo = (Player)ScriptableObject.CreateInstance("Player");
 

@@ -181,7 +181,18 @@ public partial class @PlayerAct : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""eb9ffb2e-614d-430b-8c71-a647eecae88e"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d18cfe73-9672-4ba2-8a38-3473e4677867"",
+                    ""path"": ""<DualShockGamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -203,6 +214,17 @@ public partial class @PlayerAct : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""eda93f7b-e7e0-4179-9212-9f446c3aac52"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b9bd5dae-6af6-4764-9bdf-2266628de372"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -237,6 +259,17 @@ public partial class @PlayerAct : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""f578d22b-cc61-4877-8524-2a08bef2ba83"",
                     ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Light Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e867d56-3444-4226-9888-2ec9c71737c6"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -291,7 +324,7 @@ public partial class @PlayerAct : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e98540fc-db91-4a0b-9bb1-92689e549d07"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
