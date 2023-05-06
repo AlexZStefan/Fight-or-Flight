@@ -24,6 +24,7 @@ public class Menu : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject winMenu;
     [SerializeField]
+    private GameObject optionsMenu;
     GameObject PSButton;
 
     public GameObject AvatarP1;
@@ -47,6 +48,7 @@ public class Menu : MonoBehaviour
     {
         if (!instance) instance = this;
 
+    
         //BackgroundImage.SetActive(true);
         MainMenu.SetActive(true);
         MapSelectMenu.SetActive(false);
@@ -105,6 +107,16 @@ public class Menu : MonoBehaviour
         LanguageMenu.GetComponentInChildren<Button>().Select();
     }
 
+    public void ChangeResolutionHD()
+    {
+        Screen.SetResolution(1920, 1080, false);
+    }
+
+    public void ChangeResolution1280x720()
+    {
+        Screen.SetResolution(1280, 720, false);
+    }
+
     public void Restart()
     {
         GameManager.instance.ResetGame();
@@ -126,9 +138,10 @@ public class Menu : MonoBehaviour
         MainMenu.SetActive(true);
         MapSelectMenu.SetActive(false);
         CharSelectMenu.SetActive(false);
-        PSButton.SetActive(false);
+    
         pauseMenu.SetActive(false);
         winMenu.SetActive(false);
+        optionsMenu.SetActive(false);
         LanguageMenu.SetActive(false);
         MainMenu.GetComponentInChildren<Button>().Select();
     }
@@ -149,10 +162,9 @@ public class Menu : MonoBehaviour
     public void ToogleOptionsMenu()
     {
         AudioManager.instance.PlayOneShot(FModEvents.instance.ok, Vector3.zero);
-        MainMenu.SetActive(true);
-
-        //Button b = CharSelectMenu.GetComponentInChildren<Button>();
-        //b.Select();
+        MainMenu.SetActive(false);
+        optionsMenu.SetActive(true);
+        optionsMenu.GetComponentInChildren<Button>().Select();      
     }
 
     public void ToogleMapSelectMenu()
