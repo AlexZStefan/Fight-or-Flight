@@ -2148,6 +2148,7 @@ GameObject:
   - component: {fileID: 8290013635564161489}
   - component: {fileID: 446071580919016435}
   - component: {fileID: -7979040959604998722}
+  - component: {fileID: 6824776628613864071}
   m_Layer: 0
   m_Name: Darvin
   m_TagString: Player
@@ -2292,6 +2293,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireballPrefab: {fileID: 4165431242016727474, guid: 72e5cb5c2ee790a47a4c7895f4785ca9, type: 3}
   fireballSpeed: 10
+--- !u!114 &6824776628613864071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7249743694966572854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f471694f35af04ab2a719ea65e0713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combo: {fileID: 0}
+  started: 0
+  countdownTime: 3
+  comboNumber: 0
 --- !u!1 &7578991772739210142
 GameObject:
   m_ObjectHideFlags: 0

@@ -59,7 +59,7 @@ public class Menu : MonoBehaviour
 
 
 
-        foreach (var b in CharSelectMenu.GetComponentsInChildren<Button>())
+        foreach (var b in CharSelectMenu.transform.Find("PlayerButtons").GetComponentsInChildren<Button>())
         {
             characterButtons.Add(b);
             b.onClick.AddListener(() => SelectCharacter(b));

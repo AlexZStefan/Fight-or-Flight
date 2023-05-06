@@ -61,7 +61,8 @@ public class GameManager : MonoBehaviour
                 playerOne.character = Instantiate(v);
                 playerOne.character.GetComponent<ThirdPersonUserControl>().playerIndex = 1;
                 
-                playerInputManager.JoinPlayer(1, 0, null, InputSystem.devices[0]);
+               // playerInputManager.JoinPlayer(1, 0, null, InputSystem.devices[0]);
+                playerInputManager.JoinPlayer(1);
                 playerOne.startingPosition = GameObject.Find("PlayerSpawn1").transform;
                 playerOne.character.transform.position = playerOne.startingPosition.position;
                 playerOne.character.transform.rotation = playerOne.startingPosition.rotation;

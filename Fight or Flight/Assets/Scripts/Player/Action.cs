@@ -9,6 +9,23 @@ public class Action : MonoBehaviour
     public int damage = 10;
     public Slider healthBar;
     public int ultimate = 1;
+    public int playerNumber;
+
+    public delegate void ComboHitDelegate(int playerNumber);
+    public event ComboHitDelegate OnComboHit;
+
+    private void OnDisable()
+    {
+        if(playerNumber == 1)
+        {
+        OnComboHit -= GameManager.instance.playerOne.character.GetComponent<ComboSystem>().Hit;
+
+        }
+        if (playerNumber == 2)
+        {
+        OnComboHit -= GameManager.instance.playerTwo.character.GetComponent<ComboSystem>().Hit;    
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {        
@@ -25,11 +42,19 @@ public class Action : MonoBehaviour
                 if (healthBar == null)
                 {
                     healthBar = GameObject.Find("HealthBarP1").GetComponent<Slider>();
+                    //combo
+                    var cSystem = GameManager.instance.playerTwo.character.GetComponent<ComboSystem>();
+                    cSystem.combo = GameObject.Find("P2").transform.Find("Combo").GetComponent<Text>();
+                    OnComboHit += cSystem.Hit;
+                    playerNumber = 2;
                 }
+                OnComboHit(2);
+                //helth
                 GameManager.instance.playerOne.stamina -= 10;
                 staminaLeft = GameManager.instance.playerOne.stamina;
                 healthBar.value = GameManager.instance.playerOne.stamina;
 
+                
                 // Play character get hit animation 
 
                 if (GameManager.instance.playerOne.stamina < 1)
@@ -48,7 +73,17 @@ public class Action : MonoBehaviour
                 if (healthBar == null)
                 {
                     healthBar = GameObject.Find("HealthBarP2").GetComponent<Slider>();
-                }
+
+                    // combo
+                    var cSystem = GameManager.instance.playerOne.character.GetComponent<ComboSystem>();
+                    cSystem.combo = GameObject.Find("P1").transform.Find("Combo").GetComponent<Text>(); ;
+                    OnComboHit += cSystem.Hit;
+                    playerNumber = 1;
+                }             
+
+                OnComboHit(1);
+
+                // health
                 GameManager.instance.playerTwo.stamina -= damage;
                 healthBar.value = GameManager.instance.playerTwo.stamina;
                 staminaLeft = GameManager.instance.playerTwo.stamina;
