@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
     IEnumerator starGameCountdown()
     {
         countdown.gameObject.SetActive(true);
+        AudioManager.instance.PlayOneShot(FModEvents.instance.readyFight, Vector3.zero);
         for (int i = 3; i >= 0; i--)
         {
             countdown.text = i.ToString();

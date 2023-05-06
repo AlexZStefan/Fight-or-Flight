@@ -17,6 +17,7 @@ public class FModEvents : MonoBehaviour
     [field: SerializeField] public EventReference punch { get; private set; }
     [field: SerializeField] public EventReference kick { get; private set; }
     [field: SerializeField] public EventReference block { get; private set; }
+    [field: SerializeField] public EventReference readyFight { get; private set; }
 
     [field: Header("Ambient SFX")]
     [field: SerializeField] public EventReference openWindZone { get; private set; }

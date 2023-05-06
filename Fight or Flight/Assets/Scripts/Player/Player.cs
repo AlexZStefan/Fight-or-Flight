@@ -21,7 +21,7 @@ public class Player : ScriptableObject
     {
         Destroy(character);
         character = null;
-
+        
         characterSelected = "";
     }
 

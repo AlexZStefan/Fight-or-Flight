@@ -36,7 +36,7 @@ public class ThirdPersonCharacter : MonoBehaviour
     CapsuleCollider m_Capsule;
     bool m_Crouching;
     bool mirrorAction;
-
+    bool hasRanged = false;
     public UnityAction jumpTriggered;
 
     public void InitCharacter()
@@ -67,8 +67,6 @@ public class ThirdPersonCharacter : MonoBehaviour
 
     void Start()
     {
-
-
 
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
@@ -111,8 +109,6 @@ public class ThirdPersonCharacter : MonoBehaviour
         StartCoroutine(CheckForCollision(kickColR));
 
         AudioManager.instance.PlayOneShot(FModEvents.instance.kick, Vector3.zero);
-
-
     }
 
     public void KickLeft()
@@ -121,16 +117,29 @@ public class ThirdPersonCharacter : MonoBehaviour
         StartCoroutine(CheckForCollision(kickColL));
 
         AudioManager.instance.PlayOneShot(FModEvents.instance.kick, Vector3.zero);
-
-
     }
+  
+    IEnumerator ProjectileSoot()
+    {
+        transform.GetComponent<Shoot>().Fire();
+        for (int i = 3; i > 0; i--)
+        {
+            yield return new WaitForSeconds(1);
 
+            if (i == 1)
+            {
+                hasRanged = false;
+            }
+
+        }
+    }
     public void Ultimate()
     {
         handColL.ultimate = 5;
         handColL.wasTriggered = false;
         StartCoroutine(CheckForCollision(handColL));
         AudioManager.instance.PlayOneShot(FModEvents.instance.block, Vector3.zero);
+
 
     }
 
@@ -168,6 +177,8 @@ public class ThirdPersonCharacter : MonoBehaviour
                 m_Animator.SetBool("Range", true);
                 //mirrorAction = mirrorAction == false ? true : false;
                 //m_Animator.SetBool("Mirror", mirrorAction);
+               
+
             }
             else
             {

@@ -31,6 +31,16 @@ public class Action : MonoBehaviour
                 healthBar.value = GameManager.instance.playerOne.stamina;
 
                 // Play character get hit animation 
+
+                if (GameManager.instance.playerOne.stamina < 1)
+                {
+                    rb.AddForce(new Vector3(-directionOfPush.x * (100 - staminaLeft) * ultimate, 1, 0), ForceMode.Impulse);
+
+                }
+                else
+                {
+                    rb.AddForce(new Vector3(-directionOfPush.x * (100 - staminaLeft), 5, 0), ForceMode.Impulse);
+                }
             }
 
             if (other.gameObject == GameManager.instance.playerTwo.character)
@@ -43,18 +53,19 @@ public class Action : MonoBehaviour
                 healthBar.value = GameManager.instance.playerTwo.stamina;
                 staminaLeft = GameManager.instance.playerTwo.stamina;
                 // Play character get hit animation 
-            }
 
-            if (GameManager.instance.playerTwo.stamina < 1)
-            {
-             rb.AddForce(new Vector3(-directionOfPush.x * (100 - staminaLeft) * ultimate, 1, 0), ForceMode.Impulse);
+                if (GameManager.instance.playerTwo.stamina < 1)
+                {
+                    rb.AddForce(new Vector3(-directionOfPush.x * (100 - staminaLeft) * ultimate, 1, 0), ForceMode.Impulse);
 
-            }
-            else
-            {
-                rb.AddForce(new Vector3(-directionOfPush.x *(100 - staminaLeft), 5, 0), ForceMode.Impulse);
+                }
+                else
+                {
+                    rb.AddForce(new Vector3(-directionOfPush.x * (100 - staminaLeft), 5, 0), ForceMode.Impulse);
 
+                }
             }
+                    
 
 
             AudioManager.instance.PlayOneShot(FModEvents.instance.block, Vector3.zero);
