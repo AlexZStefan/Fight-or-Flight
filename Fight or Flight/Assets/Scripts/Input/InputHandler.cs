@@ -13,7 +13,7 @@ public class InputHandler : MonoBehaviour
     {
         // only do asign player input once for each character
         if (userControl == null)
-        {
+        {           
             var characters = FindObjectsOfType<ThirdPersonUserControl>();
             var pInput = GetComponent<PlayerInput>();
             var index = pInput.playerIndex;
@@ -21,7 +21,9 @@ public class InputHandler : MonoBehaviour
             this.name = "Player: " + index;
             foreach (var c in characters)
             {
-                if (c.playerIndex == index)
+                Debug.Log("Review this if problem with controller");
+                //if (c.playerIndex == index )
+                if (c.playerIndex == index && c.GetComponent<ThirdPersonUserControl>() != userControl)
                 {
                     if (c.playerIndex == 2)
                     {
@@ -52,18 +54,13 @@ public class InputHandler : MonoBehaviour
     }
 
     public void OnMove(InputAction.CallbackContext context)
-    {
-    
+    {    
         userControl.movement = context.ReadValue<Vector2>();
-
     }
 
     public void OnJump(InputAction.CallbackContext context)
-    {
-    
-
-        userControl.jump = context.ReadValue<float>();
-    
+    {   
+        userControl.jump = context.ReadValue<float>();    
     }
 
     public void OnCrouch(InputAction.CallbackContext context)

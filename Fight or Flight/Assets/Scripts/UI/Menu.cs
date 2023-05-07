@@ -109,12 +109,12 @@ public class Menu : MonoBehaviour
 
     public void ChangeResolutionHD()
     {
-        Screen.SetResolution(1920, 1080, false);
+        Screen.SetResolution(1920, 1080, true);
     }
 
     public void ChangeResolution1280x720()
     {
-        Screen.SetResolution(1280, 720, false);
+        Screen.SetResolution(1280, 720, true);
     }
 
     public void Restart()

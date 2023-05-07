@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
                 // assign character to the player input 
                 playerTwo.character.GetComponent<ThirdPersonUserControl>().playerIndex = 2;
                // playerInputManager.JoinPlayer(2, 0, null, InputSystem.devices[0]);
-               playerInputManager.JoinPlayer(2);                 
+                playerInputManager.JoinPlayer(2);                 
                 playerTwo.startingPosition = GameObject.Find("PlayerSpawn2").transform;
                 playerTwo.character.transform.position = playerTwo.startingPosition.position;
                 playerTwo.character.transform.rotation = playerTwo.startingPosition.rotation;
@@ -90,8 +90,10 @@ public class GameManager : MonoBehaviour
             p.InitCharacter();
         }
 
-        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().AddMember(playerOne.character.transform,2,0);
-        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().AddMember(playerTwo.character.transform,2,0);
+        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().
+            AddMember(playerOne.character.transform,2,0);
+        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().
+            AddMember(playerTwo.character.transform,2,0);
 
         //ui and music
         CharSelection.instance.ChangeAvatarImage(1);
@@ -109,16 +111,16 @@ public class GameManager : MonoBehaviour
     {
         countdown.gameObject.SetActive(true);
         AudioManager.instance.PlayOneShot(FModEvents.instance.readyFight, Vector3.zero);
-        for (int i = 3; i >= 0; i--)
+        for (int i = 3; i > 0; i--)
         {
             countdown.text = i.ToString();
             
-            if(i == 0)
+            yield return new WaitForSeconds(1);
+            if(i == 1)
             {
                 countdown.text = "Fight!";
+                yield return new WaitForSeconds(0.25f);
             }
-            yield return new WaitForSeconds(1);
-
         }
         isPaused = false;
         countdown.gameObject.SetActive(false);
