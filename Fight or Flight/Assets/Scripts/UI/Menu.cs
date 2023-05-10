@@ -129,7 +129,7 @@ public class Menu : MonoBehaviour
 
     public void Resume()
     {
-        PSButton.SetActive(false);
+      
         pauseMenu.SetActive(false);
     }
 
