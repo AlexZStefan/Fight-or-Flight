@@ -129,8 +129,8 @@ public class Menu : MonoBehaviour
 
     public void Resume()
     {
-      
-        pauseMenu.SetActive(false);
+        GameManager.instance.isPaused = !GameManager.instance.isPaused;
+        pauseMenu.SetActive(GameManager.instance.isPaused);
     }
 
     public void ReturnToMainMenu()
