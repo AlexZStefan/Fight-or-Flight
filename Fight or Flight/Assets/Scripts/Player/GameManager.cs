@@ -117,27 +117,23 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
+        ResetCharacter(playerOne, 1);
+        ResetCharacter(playerTwo, 2);
+
         Menu.instance.winMenu.SetActive(false);
         gameStarted = true;
-
-        playerTwo.startingPosition = GameObject.Find("PlayerSpawn2").transform;
-        playerTwo.character.transform.position = playerTwo.startingPosition.position;
-        playerTwo.character.transform.rotation = playerTwo.startingPosition.rotation;
-
-        playerOne.startingPosition = GameObject.Find("PlayerSpawn1").transform;
-        playerOne.character.transform.position = playerOne.startingPosition.position;
-        playerOne.character.transform.rotation = playerOne.startingPosition.rotation;
-
-        GameObject.Find("HealthBarP1").GetComponent<Slider>().value = 100;
-        playerOne.stamina = 100;
-
-        GameObject.Find("HealthBarP2").GetComponent<Slider>().value = 100;
-        playerTwo.stamina = 100;
-
-        playerOne.lives = 4;
-        playerTwo.lives = 4;
-
         StartCoroutine(starGameCountdown());
+    }
+
+    private void ResetCharacter(Player player, int playerId)
+    {
+        player.startingPosition = GameObject.Find($"PlayerSpawn{playerId}").transform;
+        player.character.transform.position = playerTwo.startingPosition.position;
+        player.character.transform.rotation = playerTwo.startingPosition.rotation;
+
+        GameObject.Find($"HealthBarP{playerId}").GetComponent<Slider>().value = 100;
+        player.stamina = 100;
+        player.lives = 4;
     }
 
     // cleans player selections
