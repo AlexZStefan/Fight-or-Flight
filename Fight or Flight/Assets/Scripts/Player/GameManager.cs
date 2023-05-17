@@ -125,8 +125,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-
-
         if (gameStarted && (playerOne.lives < 0 || playerTwo.lives < 0))
         {
             if (playerOne.lives < 0)
@@ -146,7 +144,6 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
-
         Menu.instance.winMenu.SetActive(false);
         gameStarted = true;
 
@@ -159,11 +156,10 @@ public class GameManager : MonoBehaviour
         playerOne.character.transform.rotation = playerOne.startingPosition.rotation;
 
         GameObject.Find("HealthBarP1").GetComponent<Slider>().value = 100;
-
         playerOne.stamina = 100;
 
-        GameObject.Find("HealthBarP2").GetComponent<Slider>().value = 100;
 
+        GameObject.Find("HealthBarP2").GetComponent<Slider>().value = 100;
         playerTwo.stamina = 100;
 
         playerOne.lives = 4;

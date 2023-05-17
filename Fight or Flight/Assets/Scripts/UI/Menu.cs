@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using TMPro;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
@@ -48,7 +46,7 @@ public class Menu : MonoBehaviour
     {
         if (!instance) instance = this;
 
-    
+
         //BackgroundImage.SetActive(true);
         //MainMenu.SetActive(true);
         MapSelectMenu.SetActive(false);
@@ -71,11 +69,9 @@ public class Menu : MonoBehaviour
         {
             mapButtons.Add(b);
             b.onClick.AddListener(() => SelectMap(b));
-
-            b.OnSelect(selectCharacter);
         }
 
-         // Button[] mapButtonss = MapSelectMenu.GetComponentsInChildren<Button>();
+        // Button[] mapButtonss = MapSelectMenu.GetComponentsInChildren<Button>();
 
         FMOD.Studio.PLAYBACK_STATE musicState;
         AudioManager.instance.menuMusic.getPlaybackState(out musicState);
@@ -118,7 +114,7 @@ public class Menu : MonoBehaviour
         MainMenu.SetActive(true);
         MapSelectMenu.SetActive(false);
         CharSelectMenu.SetActive(false);
-    
+
         pauseMenu.SetActive(false);
         winMenu.SetActive(false);
         optionsMenu.SetActive(false);
@@ -253,7 +249,7 @@ public class Menu : MonoBehaviour
 
                 if (Gamepad.current[UnityEngine.InputSystem.LowLevel.GamepadButton.Cross].isPressed)
                 {
-                  
+
                     //Debug.Log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
                 }
             }
