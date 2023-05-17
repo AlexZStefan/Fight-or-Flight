@@ -879,9 +879,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33072f93b9a9b7c42a0ccb389a7c3f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maps:
-  - {fileID: 8779999573005554225, guid: 22c0f9bb4a0f4b14596ffa663c0d7c02, type: 3}
-  - {fileID: 5546476421805304646, guid: f45037e7e1e427c42975306cddaa05ce, type: 3}
   keys:
   - AlienPlanet
   - SkyCity
@@ -11914,7 +11911,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1350084371
 MonoBehaviour:
