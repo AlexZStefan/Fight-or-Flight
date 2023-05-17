@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -16,7 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerInputPrefab;
     public GameObject playerInputPrefab2;
     public bool isPaused = true;
-    public Text countdown;
+    public TextMeshProUGUI countdown;
 
     private void Awake()
     {
