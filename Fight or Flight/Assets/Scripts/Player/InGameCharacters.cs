@@ -9,10 +9,7 @@ public class InGameCharacters : MonoBehaviour
     public static InGameCharacters instance;
     private void Awake()
     {
-
-
-        if (!instance)
-            instance = this;
+        if (!instance) instance = this;
     }
 
 }
