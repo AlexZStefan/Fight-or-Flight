@@ -50,7 +50,7 @@ public class Menu : MonoBehaviour
 
     
         //BackgroundImage.SetActive(true);
-        MainMenu.SetActive(true);
+        //MainMenu.SetActive(true);
         MapSelectMenu.SetActive(false);
         CharSelectMenu.SetActive(false);
         InGameUI.SetActive(false);
@@ -94,8 +94,6 @@ public class Menu : MonoBehaviour
         }
 
         // Button[] mapButtonss = MapSelectMenu.GetComponentsInChildren<Button>();
-
-
 
         FMOD.Studio.PLAYBACK_STATE musicState;
         AudioManager.instance.menuMusic.getPlaybackState(out musicState);
