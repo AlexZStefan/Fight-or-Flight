@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         QualitySettings.vSyncCount = 1;
-
         playerOne = (Player)ScriptableObject.CreateInstance("Player");
         playerTwo = (Player)ScriptableObject.CreateInstance("Player");
 
@@ -32,93 +31,73 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        // GameManager.instance.playerOne.characterSelected = InGameCharacters.instance.characters[0].name;
-        // GameManager.instance.mapSelected = MapSelector.instance.maps[0].name;
-
-        // called from menu script uppond sellecting the map
-
-        // Instantiate map 
-        foreach (var v in MapSelector.instance.maps)
+        // Instantiate map
+        if (MapSelector.instance.map.TryGetValue(mapSelected, out GameObject selectedMap))
         {
-            if (v.name == mapSelected)
-            {
-                currentMap = Instantiate(v);
-                break;
-            }
-            else
-            {
-            }
+            currentMap = Instantiate(selectedMap);
         }
 
         // Instantiate characters Player 1 & 2
-        foreach (var v in InGameCharacters.instance.characters)
+        foreach (var character in InGameCharacters.instance.characters)
         {
-            if (v.name == playerOne.characterSelected)
-            {
-                playerOne.character = Instantiate(v);
-                playerOne.character.GetComponent<ThirdPersonUserControl>().playerIndex = 1;
-
-                // playerInputManager.JoinPlayer(1, 0, null, InputSystem.devices[0]);
-                playerInputManager.JoinPlayer(1);
-                playerOne.startingPosition = GameObject.Find("PlayerSpawn1").transform;
-                playerOne.character.transform.position = playerOne.startingPosition.position;
-                playerOne.character.transform.rotation = playerOne.startingPosition.rotation;
-            }
-
-            if (v.name == playerTwo.characterSelected)
-            {
-                playerTwo.character = Instantiate(v);
-                // assign character to the player input 
-                playerTwo.character.GetComponent<ThirdPersonUserControl>().playerIndex = 2;
-                // playerInputManager.JoinPlayer(2, 0, null, InputSystem.devices[0]);
-                playerInputManager.JoinPlayer(2);
-                playerTwo.startingPosition = GameObject.Find("PlayerSpawn2").transform;
-                playerTwo.character.transform.position = playerTwo.startingPosition.position;
-                playerTwo.character.transform.rotation = playerTwo.startingPosition.rotation;
-            }
+            InstantiateCharacter(playerOne, character, playerOne.characterSelected, 1);
+            InstantiateCharacter(playerTwo, character, playerTwo.characterSelected, 2);
         }
 
-        var players = Transform.FindObjectsOfType<ThirdPersonCharacter>();
-        foreach (var p in players)
+        foreach (var player in Transform.FindObjectsOfType<ThirdPersonCharacter>())
         {
-            Vector3 centre = p.transform.position;
-            centre.x = 0;
-            p.transform.LookAt(centre);
-            p.InitCharacter();
+            InitialiseCharacter(player);
         }
 
-        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().
-            AddMember(playerOne.character.transform, 2, 0);
-        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().
-            AddMember(playerTwo.character.transform, 2, 0);
+        // Add camera target to player 1 & 2
+        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().AddMember(playerOne.character.transform, 2, 0);
+        GameObject.Find("TargetGroup1").GetComponent<Cinemachine.CinemachineTargetGroup>().AddMember(playerTwo.character.transform, 2, 0);
 
-        //ui and music
+        // UI and Music
         CharSelection.instance.ChangeAvatarImage(1);
         CharSelection.instance.ChangeAvatarImage(2);
         Menu.instance.ActivateInGameUI();
         AudioManager.instance.inGameMusic.start();
-
         gameStarted = true;
         isPaused = true;
 
         StartCoroutine(starGameCountdown());
     }
 
+    void InstantiateCharacter(Player player, GameObject character, string characterSelected, int playerIndex)
+    {
+        if (character.name == characterSelected)
+        {
+            player.character = Instantiate(character);
+            player.character.GetComponent<ThirdPersonUserControl>().playerIndex = playerIndex;
+
+            playerInputManager.JoinPlayer(playerIndex);
+            player.startingPosition = GameObject.Find("PlayerSpawn" + playerIndex).transform;
+            player.character.transform.position = player.startingPosition.position;
+            player.character.transform.rotation = player.startingPosition.rotation;
+        }
+    }
+    void InitialiseCharacter(ThirdPersonCharacter player)
+    {
+        Vector3 centre = player.transform.position;
+        centre.x = 0;
+        player.transform.LookAt(centre);
+        player.InitCharacter();
+    }
+
     IEnumerator starGameCountdown()
     {
         countdown.gameObject.SetActive(true);
         AudioManager.instance.PlayOneShot(FModEvents.instance.readyFight, Vector3.zero);
+
         for (int i = 3; i > 0; i--)
         {
             countdown.text = i.ToString();
-
             yield return new WaitForSeconds(1);
-            if (i == 1)
-            {
-                countdown.text = "Fight!";
-                yield return new WaitForSeconds(0.25f);
-            }
         }
+        countdown.text = "Fight!";
+        yield return new WaitForSeconds(0.25f);
+
         isPaused = false;
         countdown.gameObject.SetActive(false);
     }

@@ -882,6 +882,12 @@ MonoBehaviour:
   maps:
   - {fileID: 8779999573005554225, guid: 22c0f9bb4a0f4b14596ffa663c0d7c02, type: 3}
   - {fileID: 5546476421805304646, guid: f45037e7e1e427c42975306cddaa05ce, type: 3}
+  keys:
+  - AlienPlanet
+  - SkyCity
+  values:
+  - {fileID: 8779999573005554225, guid: 22c0f9bb4a0f4b14596ffa663c0d7c02, type: 3}
+  - {fileID: 5546476421805304646, guid: f45037e7e1e427c42975306cddaa05ce, type: 3}
 --- !u!114 &86390366
 MonoBehaviour:
   m_ObjectHideFlags: 0

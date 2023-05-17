@@ -172,15 +172,7 @@ public class Menu : MonoBehaviour
     public void SelectMap(Button mapSelect)
     {
         AudioManager.instance.PlayOneShot(FModEvents.instance.mapSelect, Vector3.zero);
-        Debug.Log("MAP SELECTED ");
-        foreach (var m in MapSelector.instance.maps)
-        {
-            if (m.name == mapSelect.name)
-            {
-                GameManager.instance.mapSelected = m.name;
-                Debug.Log("MAP SELECTED " + m.name);
-            }
-        }
+        GameManager.instance.mapSelected = mapSelect.name;
 
         MainMenu.SetActive(false);
         MapSelectMenu.SetActive(false);
