@@ -106,18 +106,12 @@ public class GameManager : MonoBehaviour
     {
         if (gameStarted && (playerOne.lives < 0 || playerTwo.lives < 0))
         {
-            if (playerOne.lives < 0)
-            {
-                Menu.instance.winMenu.transform.Find("Win").GetComponent<TextMeshProUGUI>().text = "Player 2 wins!";
-            }
-            else
-            {
-                Menu.instance.winMenu.transform.Find("Win").GetComponent<TextMeshProUGUI>().text = "Player 1 wins!";
-            }
-            gameStarted = false;
+            string winnerGamertag = playerOne.lives < 0 ? "Player 2" : "Player 1";
+            Menu.instance.winMenu.transform.Find("Win").GetComponent<TextMeshProUGUI>().text = winnerGamertag + " Wins!";
             Menu.instance.winMenu.SetActive(true);
-            isPaused = true;
             Menu.instance.winMenu.GetComponentInChildren<Button>().Select();
+            gameStarted = false;
+            isPaused = true;
         }
     }
 
