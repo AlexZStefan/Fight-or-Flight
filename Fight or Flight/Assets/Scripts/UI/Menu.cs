@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class Menu : MonoBehaviour
 {
@@ -34,7 +35,6 @@ public class Menu : MonoBehaviour
 
     UnityEngine.EventSystems.BaseEventData selectCharacter;
 
-
     [field: Header("Character Buttons")]
     List<Button> characterButtons = new List<Button>();
     [field: SerializeField] public Button char1 { get; private set; }
@@ -59,24 +59,14 @@ public class Menu : MonoBehaviour
         // add event listeners
         //Button[] buttons =  CharSelectMenu.GetComponentsInChildren<Button>();
 
-
-
         foreach (var b in CharSelectMenu.transform.Find("PlayerButtons").GetComponentsInChildren<Button>())
         {
             characterButtons.Add(b);
             b.onClick.AddListener(() => SelectCharacter(b));
         }
 
-        for (int i = 0; i < InGameCharacters.instance.characters.Count; i++)
-        {
-            characterButtons[i].GetComponent<Text>().text = InGameCharacters.instance.characters[i].name;
-            characterButtons[i].name = InGameCharacters.instance.characters[i].name;
-        }
-
         // set text name to each map 
         // add event listeners
-
-
         foreach (var b in MapSelectMenu.GetComponentsInChildren<Button>())
         {
             mapButtons.Add(b);
