@@ -160,9 +160,18 @@ public class Menu : MonoBehaviour
     public void ToogleOptionsMenu()
     {
         AudioManager.instance.PlayOneShot(FModEvents.instance.ok, Vector3.zero);
-        MainMenu.SetActive(false);
-        optionsMenu.SetActive(true);
-        optionsMenu.GetComponentInChildren<Button>().Select();      
+        if (optionsMenu.activeSelf)
+        {
+            optionsMenu.SetActive(false);
+            MainMenu.SetActive(true);
+            MainMenu.GetComponentInChildren<Button>().Select();
+        }
+        else
+        {
+            MainMenu.SetActive(false);
+            optionsMenu.SetActive(true);
+            optionsMenu.GetComponentInChildren<Button>().Select();
+        }
     }
 
     public void ToogleMapSelectMenu()
