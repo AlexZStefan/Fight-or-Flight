@@ -66,7 +66,7 @@ public class Menu : MonoBehaviour
         }
 
         // set text name to each map 
-        // add event listeners
+        // add event listeners  
         foreach (var b in MapSelectMenu.GetComponentsInChildren<Button>())
         {
             mapButtons.Add(b);
@@ -75,15 +75,7 @@ public class Menu : MonoBehaviour
             b.OnSelect(selectCharacter);
         }
 
-        for (int i = 0; i < MapSelector.instance.maps.Count; i++)
-        {
-            mapButtons[i].GetComponent<Text>().text = MapSelector.instance.maps[i].name;
-            mapButtons[i].name = MapSelector.instance.maps[i].name;
-            //Debug.Log(MapSelector.instance.maps[i].name);
-            // There is a bug here - map is selected as map 0 for temp fix
-        }
-
-        // Button[] mapButtonss = MapSelectMenu.GetComponentsInChildren<Button>();
+         // Button[] mapButtonss = MapSelectMenu.GetComponentsInChildren<Button>();
 
         FMOD.Studio.PLAYBACK_STATE musicState;
         AudioManager.instance.menuMusic.getPlaybackState(out musicState);
@@ -201,6 +193,7 @@ public class Menu : MonoBehaviour
     public void SelectMap(Button mapSelect)
     {
         AudioManager.instance.PlayOneShot(FModEvents.instance.mapSelect, Vector3.zero);
+        Debug.Log("MAP SELECTED ");
         foreach (var m in MapSelector.instance.maps)
         {
             if (m.name == mapSelect.name)
@@ -209,6 +202,7 @@ public class Menu : MonoBehaviour
                 Debug.Log("MAP SELECTED " + m.name);
             }
         }
+
 
         MainMenu.SetActive(false);
         MapSelectMenu.SetActive(false);
