@@ -158,7 +158,6 @@ public class GameManager : MonoBehaviour
         GameObject.Find("HealthBarP1").GetComponent<Slider>().value = 100;
         playerOne.stamina = 100;
 
-
         GameObject.Find("HealthBarP2").GetComponent<Slider>().value = 100;
         playerTwo.stamina = 100;
 
@@ -196,14 +195,8 @@ public class GameManager : MonoBehaviour
         currentMap = null;
     }
 
-
-
     void CleanUpRound()
     {
         AudioManager.instance.inGameMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
-
-
-
-
 }

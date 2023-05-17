@@ -13,8 +13,6 @@ public class Menu : MonoBehaviour
     GameObject MapSelectMenu;
     [SerializeField]
     GameObject LanguageMenu;
-    //[SerializeField]
-    //GameObject BackgroundImage; 
     [SerializeField]
     GameObject InGameUI;
     [SerializeField]
@@ -24,7 +22,6 @@ public class Menu : MonoBehaviour
     public GameObject winMenu;
     [SerializeField]
     private GameObject optionsMenu;
-    GameObject PSButton;
 
     public GameObject AvatarP1;
     public GameObject AvatarP2;
@@ -44,18 +41,11 @@ public class Menu : MonoBehaviour
 
     private void Start()
     {
-        if (!instance) instance = this;
+        if (instance) return;
 
-
-        //BackgroundImage.SetActive(true);
-        //MainMenu.SetActive(true);
         MapSelectMenu.SetActive(false);
         CharSelectMenu.SetActive(false);
         InGameUI.SetActive(false);
-
-        // set text namae to each character 
-        // add event listeners
-        //Button[] buttons =  CharSelectMenu.GetComponentsInChildren<Button>();
 
         foreach (var b in CharSelectMenu.transform.Find("PlayerButtons").GetComponentsInChildren<Button>())
         {
@@ -63,15 +53,12 @@ public class Menu : MonoBehaviour
             b.onClick.AddListener(() => SelectCharacter(b));
         }
 
-        // set text name to each map 
-        // add event listeners  
         foreach (var b in MapSelectMenu.GetComponentsInChildren<Button>())
         {
             mapButtons.Add(b);
             b.onClick.AddListener(() => SelectMap(b));
         }
-
-        // Button[] mapButtonss = MapSelectMenu.GetComponentsInChildren<Button>();
+        LanguageMenu.GetComponentInChildren<Button>().Select();
 
         FMOD.Studio.PLAYBACK_STATE musicState;
         AudioManager.instance.menuMusic.getPlaybackState(out musicState);
@@ -80,7 +67,7 @@ public class Menu : MonoBehaviour
             AudioManager.instance.menuMusic.start();
         }
 
-        LanguageMenu.GetComponentInChildren<Button>().Select();
+        instance = this;
     }
 
     public void ChangeResolutionHD()
@@ -130,9 +117,7 @@ public class Menu : MonoBehaviour
         CharSelectMenu.SetActive(true);
         Button b = CharSelectMenu.GetComponentInChildren<Button>();
         b.Select();
-
         b.OnSelect(selectCharacter);
-
     }
 
     public void ToogleOptionsMenu()
@@ -161,7 +146,6 @@ public class Menu : MonoBehaviour
         Button[] b = MapSelectMenu.GetComponentsInChildren<Button>();
         b[0].Select();
 
-        // AudioManager.instance.menuMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         AudioManager.instance.menuMusic.setParameterByName("Loop", 0);
     }
 
@@ -183,7 +167,6 @@ public class Menu : MonoBehaviour
                 }
             }
         }
-        // if (GameManager.instance.playerOne.characterSelected.Length > 0) //&& playerTwo.characterSelected == "")        
     }
 
     public void SelectMap(Button mapSelect)
@@ -199,11 +182,9 @@ public class Menu : MonoBehaviour
             }
         }
 
-
         MainMenu.SetActive(false);
         MapSelectMenu.SetActive(false);
         CharSelectMenu.SetActive(false);
-        //BackgroundImage.SetActive(false);
 
         AudioManager.instance.menuMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         GameManager.instance.StartGame();
@@ -223,8 +204,6 @@ public class Menu : MonoBehaviour
         quitPrompt = !quitPrompt;
         QuitPrompt.SetActive(quitPrompt);
     }
-
-
     private void Update()
     {
         if (MainMenu.activeInHierarchy == true)
@@ -262,5 +241,4 @@ public class Menu : MonoBehaviour
         Debug.Log("Game quited");
         Application.Quit();
     }
-
 }
